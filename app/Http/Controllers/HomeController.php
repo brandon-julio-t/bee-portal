@@ -9,9 +9,8 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $isLoggedIn = Auth::check();
-        return $isLoggedIn
-            ? view('home')
-            : redirect()->route('auth.login.view');
+        if (!Auth::check()) return redirect()->route('auth.login.view');
+        if (Auth::user()->role === 'admin') return redirect()->route('admin.allocation');
+        return view('home');
     }
 }
