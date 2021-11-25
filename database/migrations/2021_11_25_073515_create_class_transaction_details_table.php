@@ -16,6 +16,7 @@ class CreateClassTransactionDetailsTable extends Migration
         Schema::create('class_transaction_details', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('class_transaction_id')->constrained();
+            $table->foreignUuid('shift_id')->constrained();
             $table->text('note');
             $table->integer('session');
             $table->timestamp('start_at')->nullable();

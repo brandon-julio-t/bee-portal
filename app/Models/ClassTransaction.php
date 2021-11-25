@@ -25,7 +25,6 @@ class ClassTransaction extends Model
     protected $fillable = [
         'id',
         'classroom_id',
-        'shift_id',
         'subject_id',
         'semester_id',
         'lecturer_id',
@@ -40,7 +39,6 @@ class ClassTransaction extends Model
     protected $casts = [
         'id' => 'string',
         'classroom_id' => 'string',
-        'shift_id' => 'string',
         'subject_id' => 'string',
         'semester_id' => 'string',
         'lecturer_id' => 'string',
@@ -51,12 +49,7 @@ class ClassTransaction extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    public function shift()
-    {
-        return $this->belongsTo(Shift::class);
-    }
-
-    public function subject()
+public function subject()
     {
         return $this->belongsTo(Subject::class);
     }

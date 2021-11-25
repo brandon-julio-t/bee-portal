@@ -24,6 +24,7 @@ class ClassTransactionDetail extends Model
     protected $fillable = [
         'id',
         'class_transaction_id',
+        'shift_id',
         'note',
         'session',
         'start_at',
@@ -38,5 +39,11 @@ class ClassTransactionDetail extends Model
     protected $casts = [
         'id' => 'string',
         'class_transaction_id' => 'string',
+        'shift_id' => 'string',
     ];
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class);
+    }
 }

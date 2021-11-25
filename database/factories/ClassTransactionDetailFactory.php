@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Shift;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,7 @@ class ClassTransactionDetailFactory extends Factory
         $start = $this->faker->dateTimeThisYear($finish);
         return [
             'id' => Str::uuid(),
+            'shift_id' => Shift::inRandomOrder()->first()->id,
             'note' => collect($this->faker->paragraph(random_int(3, 5)))->join('\n'),
             'session' => self::$i++,
             'start_at' => $start,
