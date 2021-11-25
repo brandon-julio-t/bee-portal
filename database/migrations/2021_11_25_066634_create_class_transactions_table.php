@@ -19,7 +19,7 @@ class CreateClassTransactionsTable extends Migration
             $table->foreignUuid('shift_id')->constrained();
             $table->foreignUuid('subject_id')->constrained();
             $table->foreignUuid('semester_id')->constrained();
-            $table->foreignUuid('user_id')->comment('lecturer')->constrained();
+            $table->foreignUuid('lecturer_id')->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

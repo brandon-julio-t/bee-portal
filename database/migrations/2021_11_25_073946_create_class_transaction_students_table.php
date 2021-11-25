@@ -16,7 +16,7 @@ class CreateClassTransactionStudentsTable extends Migration
         Schema::create('class_transaction_students', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('class_transaction_id')->constrained();
-            $table->foreignUuid('user_id')->comment('student')->constrained();
+            $table->foreignUuid('student_id')->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

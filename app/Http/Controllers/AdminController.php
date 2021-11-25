@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\ClassTransaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,8 @@ class AdminController extends Controller
 {
     public function allocation()
     {
-        return view('admin.allocation');
+        $classTransactions = ClassTransaction::paginate();
+        return view('admin.allocation', compact('classTransactions'));
     }
 
     public function manageClassrooms()

@@ -28,7 +28,7 @@ class ClassTransaction extends Model
         'shift_id',
         'subject_id',
         'semester_id',
-        'user_id',
+        'lecturer_id',
     ];
 
 
@@ -43,8 +43,33 @@ class ClassTransaction extends Model
         'shift_id' => 'string',
         'subject_id' => 'string',
         'semester_id' => 'string',
-        'user_id' => 'string',
+        'lecturer_id' => 'string',
     ];
+
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function lecturer()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function classTransactionDetails()
     {

@@ -17,6 +17,17 @@ class ClassTransactionStudent extends Model
     public $incrementing = false;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'id',
+        'class_transaction_id',
+        'student_id',
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array
@@ -24,5 +35,11 @@ class ClassTransactionStudent extends Model
     protected $casts = [
         'id' => 'string',
         'class_transaction_id' => 'string',
+        'student_id' => 'string'
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -25,7 +25,7 @@ class ClassTransactionFactory extends Factory
             'shift_id' => Shift::inRandomOrder()->first()->id,
             'subject_id' => Subject::inRandomOrder()->first()->id,
             'semester_id' => Semester::inRandomOrder()->first()->id,
-            'user_id' => User::inRandomOrder()->where('role', 'lecturer')->first()->id,
+            'lecturer_id' => User::inRandomOrder()->where('role', 'lecturer')->first()->id,
         ];
     }
 }

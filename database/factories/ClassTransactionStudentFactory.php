@@ -17,7 +17,7 @@ class ClassTransactionStudentFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'user_id' => User::inRandomOrder()->where('role', 'student')->first()->id,
+            'student_id' => User::inRandomOrder()->where('role', 'student')->first()->id,
         ];
     }
 }
