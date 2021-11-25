@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,13 +30,22 @@ Route::prefix('/auth')->group(function () {
     });
 });
 
+Route::prefix('/user')->group(function () {
+    Route::name('user.')->group(function () {
+            Route::middleware('auth')->group(function () {
+                Route::post('/change-semester', [UserController::class, 'changeSemester'])->name('change-semester');
+            });
+        });
+    });
+
 Route::prefix('/admin')->group(function () {
     Route::name('admin.')->group(function () {
         Route::middleware('admin')->group(function () {
             Route::get('/allocation', [AdminController::class, 'allocation'])->name('allocation');
             Route::get('/manage-classrooms', [AdminController::class, 'manageClassrooms'])->name('manage-classrooms');
-            Route::get('/manage-students', [AdminController::class, 'manageStudents'])->name('manage-students');
             Route::get('/manage-lecturers', [AdminController::class, 'manageLecturers'])->name('manage-lecturers');
+            Route::get('/manage-students', [AdminController::class, 'manageStudents'])->name('manage-students');
+            Route::get('/manage-subjects', [AdminController::class, 'manageSubjects'])->name('manage-subjects');
         });
     });
 });

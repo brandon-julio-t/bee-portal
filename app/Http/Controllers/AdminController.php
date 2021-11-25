@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\ClassTransaction;
 use App\Models\Semester;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,19 +27,25 @@ class AdminController extends Controller
 
     public function manageClassrooms()
     {
-        $classrooms = Classroom::paginate();
+        $classrooms = Classroom::orderBy('name')->paginate();
         return view('admin.manage-classrooms', compact('classrooms'));
     }
 
     public function manageStudents()
     {
-        $students = User::where('role', 'student')->paginate();
+    $students = User::where('role', 'student')->orderBy('name')->paginate();
         return view('admin.manage-students', compact('students'));
+    }
+
+    public function manageSubjects()
+    {
+        $subjects = Subject::orderBy('name')->paginate();
+        return view('admin.manage-subjects', compact('subjects'));
     }
 
     public function manageLecturers()
     {
-        $lecturers = User::where('role', 'lecturer')->paginate();
+    $lecturers = User::where('role', 'lecturer')->orderBy('name')->paginate();
         return view('admin.manage-lecturers', compact('lecturers'));
     }
 }
