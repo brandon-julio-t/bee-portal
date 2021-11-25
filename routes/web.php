@@ -33,7 +33,7 @@ Route::prefix('/admin')->group(function () {
     Route::name('admin.')->group(function () {
         Route::middleware('admin')->group(function () {
             Route::get('/allocation', [AdminController::class, 'allocation'])->name('allocation');
-            Route::get('/manage-classes', [AdminController::class, 'manageClasses'])->name('manage-classes');
+            Route::get('/manage-classrooms', [AdminController::class, 'manageClassrooms'])->name('manage-classrooms');
             Route::get('/manage-students', [AdminController::class, 'manageStudents'])->name('manage-students');
             Route::get('/manage-lecturers', [AdminController::class, 'manageLecturers'])->name('manage-lecturers');
         });

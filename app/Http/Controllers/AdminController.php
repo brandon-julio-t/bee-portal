@@ -13,10 +13,10 @@ class AdminController extends Controller
         return view('admin.allocation');
     }
 
-    public function manageClasses()
+    public function manageClassrooms()
     {
         $classrooms = Classroom::paginate();
-        return view('admin.manage-classes', compact('classrooms'));
+        return view('admin.manage-classrooms', compact('classrooms'));
     }
 
     public function manageStudents()

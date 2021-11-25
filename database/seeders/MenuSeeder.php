@@ -16,7 +16,7 @@ class MenuSeeder extends Seeder
     public function run()
     {
         $routes = [
-            'admin' => ['Allocation', 'Manage Classes', 'Manage Students', 'Manage Lecturers'],
+            'admin' => ['Allocation', 'Manage Classrooms', 'Manage Students', 'Manage Lecturers'],
             'student' => [],
             'lecturer' => [],
         ];
