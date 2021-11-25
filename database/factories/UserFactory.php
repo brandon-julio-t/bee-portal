@@ -15,6 +15,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'id' => Str::uuid(),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -33,6 +34,26 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
+            ];
+        });
+    }
+
+    public function student()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'student',
+                'code' => sprintf('%010d', rand(1, 10000000000))
+            ];
+        });
+    }
+
+    public function lecturer()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'lecturer',
+                'code' => sprintf('D%04d', rand(1, 10000))
             ];
         });
     }

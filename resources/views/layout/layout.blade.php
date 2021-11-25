@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Bee Portal</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
+
+    @include('layout.navbar')
 
     @if ($errors->any())
         <!-- This example requires Tailwind CSS v2.0+ -->
@@ -39,7 +42,7 @@
         </div>
     @endif
 
-    <main>
+    <main class="my-8">
         @yield('body')
     </main>
 

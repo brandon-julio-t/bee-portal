@@ -12,7 +12,7 @@
                 <input type="checkbox" name="remember_me">
                 <span class="ml-1">Remember Me</span>
             </label>
-            <button type="submit" class="btn-primary">Login</button>
+            <button type="submit" class="btn-primary justify-center">Login</button>
         </form>
     </div>
 
