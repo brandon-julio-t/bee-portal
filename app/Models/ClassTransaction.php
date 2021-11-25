@@ -11,12 +11,24 @@ class ClassTransaction extends Model
     use HasFactory, SoftDeletes;
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
         'id',
+        'classroom_id',
+        'shift_id',
+        'subject_id',
+        'semester_id',
+        'user_id',
     ];
 
 
@@ -27,6 +39,20 @@ class ClassTransaction extends Model
      */
     protected $casts = [
         'id' => 'string',
-        'email_verified_at' => 'datetime',
+        'classroom_id' => 'string',
+        'shift_id' => 'string',
+        'subject_id' => 'string',
+        'semester_id' => 'string',
+        'user_id' => 'string',
     ];
+
+    public function classTransactionDetails()
+    {
+        return $this->hasMany(ClassTransactionDetail::class);
+    }
+
+    public function classTransactionStudents()
+    {
+        return $this->hasMany(ClassTransactionStudent::class);
+    }
 }

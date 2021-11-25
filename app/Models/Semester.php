@@ -9,7 +9,14 @@ class Semester extends Model
 {
     use HasFactory;
 
-     /**
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
@@ -18,5 +25,14 @@ class Semester extends Model
         'id',
         'name',
         'active_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'string',
     ];
 }

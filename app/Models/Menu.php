@@ -10,6 +10,13 @@ class Menu extends Model
     use HasFactory;
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
@@ -19,5 +26,14 @@ class Menu extends Model
         'name',
         'route_name',
         'role',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'string',
     ];
 }
