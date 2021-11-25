@@ -49,7 +49,7 @@ class ClassTransaction extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-public function subject()
+    public function subject()
     {
         return $this->belongsTo(Subject::class);
     }

@@ -9,7 +9,7 @@
             <input type="email" name="email" placeholder="Email" class="form-input">
             <input type="password" name="password" placeholder="Password" class="form-input">
             <label class="flex items-center">
-                <input type="checkbox" name="remember_me">
+                <input type="checkbox" name="remember_me" class="form-check">
                 <span class="ml-1">Remember Me</span>
             </label>
             <button type="submit" class="btn-primary justify-center">Login</button>

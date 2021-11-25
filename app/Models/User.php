@@ -30,6 +30,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'id',
+        'semester_id',
         'name',
         'email',
         'password',
@@ -56,4 +57,14 @@ class User extends Authenticatable
         'id' => 'string',
         'email_verified_at' => 'datetime',
     ];
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function activeSemester()
+    {
+        return $this->semester ?? Semester::orderByDesc('active_at')->first();
+    }
 }

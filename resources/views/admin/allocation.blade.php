@@ -2,14 +2,33 @@
 
 @section('body')
     <div class="container">
-        <button class="btn-primary mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clip-rule="evenodd" />
-            </svg>
-            Create
-        </button>
+        <div class="flex justify-between">
+            <button class="btn-primary mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clip-rule="evenodd" />
+                </svg>
+                Create
+            </button>
+            <form action="{{ route('admin.allocation') }}" method="GET" id="semester-filter-form">
+                <div x-data="{ semesterId: '{{ $activeSemester->id }}' }" x-init="$watch('semesterId', () => {
+                            const form = document.querySelector('#semester-filter-form');
+                            form.submit();
+                        })">
+                    <select name="semester_id" class="form-input" x-model="semesterId">
+                        @foreach ($semesters as $semester)
+                            <option
+                                value="{{ $semester->id }}"
+                                @if ($semester->id === $activeSemester->id) selected="selected" @endif
+                            >
+                                {{ $semester->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+        </div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -31,7 +50,7 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Shift
+                                        Created At
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Actions</span>
@@ -42,13 +61,13 @@
                                 @foreach ($classTransactions as $classTransaction)
                                     <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $classTransaction->name }}
+                                            {{ $classTransaction->subject->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ $classTransaction->email }}
+                                            {{ $classTransaction->classroom->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ $classTransaction->code }}
+                                            {{ $classTransaction->lecturer->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $classTransaction->created_at }}

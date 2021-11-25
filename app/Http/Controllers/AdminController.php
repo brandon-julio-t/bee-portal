@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Models\ClassTransaction;
+use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function allocation()
+    public function allocation(Request $request)
     {
-        $classTransactions = ClassTransaction::paginate();
-        return view('admin.allocation', compact('classTransactions'));
+        $semesterId = $request->semester_id;
+        $activeSemester = $semesterId
+            ? Semester::find($semesterId)
+            : Auth::user()->activeSemester();
+
+        $classTransactions = ClassTransaction::where('semester_id', $activeSemester->id)->paginate();
+        $semesters = Semester::orderByDesc('active_at')->get();
+
+        return view('admin.allocation', compact('classTransactions', 'semesters', 'activeSemester'));
     }
 
     public function manageClassrooms()
