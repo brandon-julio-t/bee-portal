@@ -2,14 +2,21 @@
 
 @section('body')
     <div class="container">
-        <button class="btn-primary mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clip-rule="evenodd" />
-            </svg>
-            Create
-        </button>
+    <div class="container">
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-4 sm:space-y-0 mb-4">
+            <button class="btn-primary justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clip-rule="evenodd" />
+                </svg>
+                Create
+            </button>
+
+            <form action="{{ route('admin.manage-lecturers') }}" class="flex-grow">
+                <input type="text" name="q" placeholder="Search..." class="form-input" value="{{ request()->q }}">
+            </form>
+        </div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

@@ -26,7 +26,7 @@ class ClassTransactionSeeder extends Seeder
             )
             ->has(
                 ClassTransactionStudent::factory()
-                    ->count(64)
+                    ->count(30)
                     ->state(function (array $attributes, ClassTransaction $classTransaction) {
                         return ['class_transaction_id' => $classTransaction->id];
                     })
