@@ -21,8 +21,6 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             ClassroomSeeder::class,
             ClassTransactionSeeder::class,
-            ClassTransactionDetailSeeder::class,
-            ClassTransactionStudentSeeder::class,
         ]);
     }
 }
