@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -26,25 +27,46 @@ class AdminController extends Controller
                 $query->orWhereHas('classroom', function (Builder $query) use ($q) {
                     $query->where('name', 'like', "%$q%");
                 })
-                ->orWhereHas('subject', function (Builder $query) use ($q) {
-                    $query->where('name', 'like', "%$q%");
-                })
-                ->orWhereHas('lecturer', function (Builder $query) use ($q) {
-                    $query->where('name', 'like', "%$q%");
-                });
+                    ->orWhereHas('subject', function (Builder $query) use ($q) {
+                        $query->where('name', 'like', "%$q%");
+                    })
+                    ->orWhereHas('lecturer', function (Builder $query) use ($q) {
+                        $query->where('name', 'like', "%$q%");
+                    });
             })
             ->paginate();
 
         $semesters = Semester::orderByDesc('active_at')->get();
 
-        return view('admin.allocation', compact('classTransactions', 'semesters', 'activeSemester'));
+        return view('admin.allocation.index', compact('classTransactions', 'semesters', 'activeSemester'));
     }
 
     public function manageClassrooms(Request $request)
     {
         $q = $request->q;
         $classrooms = Classroom::orderBy('name')->where('name', 'like', "%$q%")->paginate();
-        return view('admin.manage-classrooms', compact('classrooms'));
+        return view('admin.classrooms.index', compact('classrooms'));
+    }
+
+    public function updateOrCreateClassroom(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|unique:classrooms,name,except,id'
+        ]);
+        $data = collect($data)
+            ->merge(['id' => $request->id ?? Str::uuid()])
+            ->all();
+        Classroom::updateOrCreate(['id' => $request->id], $data);
+        return redirect()->back()
+            ->with('success', 'Classroom ' . ($request->id ? 'updated' : 'created') . '.');
+    }
+
+    public function deleteClassroom(Classroom $classroom)
+    {
+        $isDeleted = $classroom->delete();
+        return $isDeleted
+            ? redirect()->back()->with('success', 'Classroom deleted.')
+            : redirect()->back()->withErrors('An error occurred while deleting classroom.');
     }
 
     public function manageStudents(Request $request)
@@ -58,7 +80,7 @@ class AdminController extends Controller
             })
             ->orderBy('name')
             ->paginate();
-        return view('admin.manage-students', compact('students'));
+        return view('admin.users.students-index', compact('students'));
     }
 
     public function manageSubjects(Request $request)
@@ -68,7 +90,7 @@ class AdminController extends Controller
             ->orWhere('code', 'like', "%$q%")
             ->orderBy('name')
             ->paginate();
-        return view('admin.manage-subjects', compact('subjects'));
+        return view('admin.subjects.index', compact('subjects'));
     }
 
     public function manageLecturers(Request $request)
@@ -82,6 +104,6 @@ class AdminController extends Controller
             })
             ->orderBy('name')
             ->paginate();
-        return view('admin.manage-lecturers', compact('lecturers'));
+        return view('admin.users.lecturers-index', compact('lecturers'));
     }
 }

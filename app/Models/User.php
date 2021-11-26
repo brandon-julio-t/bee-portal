@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->semester ?? Semester::orderByDesc('active_at')->first();
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }

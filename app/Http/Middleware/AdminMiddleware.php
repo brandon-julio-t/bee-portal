@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        return $user && $user->email === 'admin@email.com'
+        return $user && $user->isAdmin()
             ? $next($request)
             : redirect()->route('auth.login.view');
     }

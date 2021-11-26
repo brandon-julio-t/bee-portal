@@ -2,7 +2,7 @@
 
 @section('body')
 
-    <div class="mx-auto my-16 max-w-sm">
+    <div class="mx-auto my-8 md:my-16 max-w-sm">
         <form action="{{ route('auth.login') }}" method="POST" class="card grid grid-cols-1 gap-4">
             @csrf
             <h1 class="text-xl font-medium">Login</h1>

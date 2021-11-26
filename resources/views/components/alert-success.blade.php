@@ -1,5 +1,5 @@
 @if (session('success'))
-    <div x-data="{ show: true }" class="container my-8">
+    <div x-cloak x-transition x-data="{ show: true }" class="container my-8">
         <div class="rounded-md bg-green-50 p-4" x-show="show">
             <div class="flex">
                 <div class="flex-shrink-0">

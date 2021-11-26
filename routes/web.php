@@ -32,17 +32,26 @@ Route::prefix('/auth')->group(function () {
 
 Route::prefix('/user')->group(function () {
     Route::name('user.')->group(function () {
-            Route::middleware('auth')->group(function () {
-                Route::post('/change-semester', [UserController::class, 'changeSemester'])->name('change-semester');
-            });
+        Route::middleware('auth')->group(function () {
+            Route::post('/change-semester', [UserController::class, 'changeSemester'])->name('change-semester');
         });
     });
+});
 
 Route::prefix('/admin')->group(function () {
     Route::name('admin.')->group(function () {
         Route::middleware('admin')->group(function () {
             Route::get('/allocation', [AdminController::class, 'allocation'])->name('allocation');
-            Route::get('/manage-classrooms', [AdminController::class, 'manageClassrooms'])->name('manage-classrooms');
+
+
+            Route::prefix('/manage-classrooms')->group(function () {
+                Route::name('manage-classrooms')->group(function () {
+                    Route::get('/', [AdminController::class, 'manageClassrooms'])->name('');
+                    Route::post('/', [AdminController::class, 'updateOrCreateClassroom'])->name('.update-or-create');
+                    Route::delete('/{classroom}', [AdminController::class, 'deleteClassroom'])->name('.delete');
+                });
+            });
+
             Route::get('/manage-lecturers', [AdminController::class, 'manageLecturers'])->name('manage-lecturers');
             Route::get('/manage-students', [AdminController::class, 'manageStudents'])->name('manage-students');
             Route::get('/manage-subjects', [AdminController::class, 'manageSubjects'])->name('manage-subjects');

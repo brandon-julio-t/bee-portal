@@ -71,7 +71,7 @@ if (Auth::check()) {
                         <form action="{{ route('user.change-semester') }}" method="POST" id="change-semester-form" class="mt-4">
                             @csrf
                             <div
-                                x-data="{ semesterId: '{{ Auth::user()->semester->id }}' }"
+                                x-data="{ semesterId: '{{ Auth::user()->activeSemester() }}' }"
                                 x-init="$watch('semesterId', () => { document.querySelector('#change-semester-form').submit() })"
                             >
                                 <select name="semester_id" class="form-input" x-model="semesterId">
@@ -93,7 +93,7 @@ if (Auth::check()) {
                             </button>
                         </div>
 
-                        <div x-show="open"
+                        <div x-cloak x-transition x-show="open"
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
@@ -119,7 +119,7 @@ if (Auth::check()) {
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div x-show="openMobileMenu" id="mobile-menu">
+    <div x-cloak x-transition x-show="openMobileMenu" id="mobile-menu">
         <div class="pt-2 pb-4 space-y-1">
             <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
             @auth
