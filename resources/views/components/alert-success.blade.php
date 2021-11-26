@@ -13,7 +13,7 @@
                 </div>
                 <div class="ml-3">
                     <p class="text-sm font-medium text-green-800">
-                        {{ session('success') }}
+                        {!! session('success') !!}
                     </p>
                 </div>
                 <div class="ml-auto pl-3">

@@ -63,6 +63,14 @@ Route::prefix('/admin')->group(function () {
 
             Route::get('/manage-lecturers', [AdminController::class, 'manageLecturers'])->name('manage-lecturers');
             Route::get('/manage-students', [AdminController::class, 'manageStudents'])->name('manage-students');
+
+            Route::prefix('/manage-users')->group(function () {
+                Route::name('manage-users')->group(function () {
+                    Route::post('/', [AdminController::class, 'updateOrCreateUser'])->name('.update-or-create');
+                    Route::delete('/{user}', [AdminController::class, 'deleteUser'])->name('.delete');
+                    Route::post('/restore/{user}', [AdminController::class, 'restoreUser'])->name('.restore');
+                });
+            });
         });
     });
 });

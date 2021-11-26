@@ -40,7 +40,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($classrooms as $classroom)
-                                        <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
+                                        <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100   ">
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {{ $classroom->name }}
                                             </td>
@@ -131,5 +131,4 @@
             </div>
         </div>
     </div>
-
 @endsection
