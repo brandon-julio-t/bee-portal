@@ -52,9 +52,17 @@ Route::prefix('/admin')->group(function () {
                 });
             });
 
+
+            Route::prefix('/manage-subjects')->group(function () {
+                Route::name('manage-subjects')->group(function () {
+                    Route::get('/', [AdminController::class, 'manageSubjects'])->name('');
+                    Route::post('/', [AdminController::class, 'updateOrCreateSubject'])->name('.update-or-create');
+                    Route::delete('/{subject}', [AdminController::class, 'deleteSubject'])->name('.delete');
+                });
+            });
+
             Route::get('/manage-lecturers', [AdminController::class, 'manageLecturers'])->name('manage-lecturers');
             Route::get('/manage-students', [AdminController::class, 'manageStudents'])->name('manage-students');
-            Route::get('/manage-subjects', [AdminController::class, 'manageSubjects'])->name('manage-subjects');
         });
     });
 });

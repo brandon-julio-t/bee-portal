@@ -4,15 +4,8 @@
     <div x-data="{ showModal: false, action: '', classroomId: '', classroomName: '' }">
         <div class="container">
             <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-4 sm:space-y-0 mb-4">
-                <button
-                    @click="() => {
-                        showModal = true;
-                        action = 'Create';
-                        classroomId = '';
-                        classroomName = '';
-                    }"
-                    class="btn-primary justify-center"
-                >
+                <button @click="() => { showModal = true; action = 'Create'; classroomId = ''; classroomName = ''; }"
+                    class="btn-primary justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -56,14 +49,8 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button
-                                                    @click="() => {
-                                                        showModal = true;
-                                                        action = 'Update';
-                                                        classroomId = '{{ $classroom->id }}';
-                                                        classroomName = '{{ $classroom->name }}';
-                                                    }"
-                                                    class="btn-secondary"
-                                                >
+                                                    @click="() => { showModal = true; action = 'Update'; classroomId = '{{ $classroom->id }}'; classroomName = '{{ $classroom->name }}'; }"
+                                                    class="btn-secondary">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon"
                                                         viewBox="0 0 20 20" fill="currentColor">
                                                         <path
@@ -77,8 +64,10 @@
 
                                                 <div x-data="{ showDeleteDialog: false }" class="inline-block relative">
                                                     <div x-cloak x-transition x-show="showDeleteDialog"
-                                                        class="absolute top-0 right-0 z-10">
-                                                        <form action="{{ route('admin.manage-classrooms.delete', $classroom) }}" method="POST" class="card bg-white">
+                                                        class="absolute bottom-0 right-0 z-10">
+                                                        <form
+                                                            action="{{ route('admin.manage-classrooms.delete', $classroom) }}"
+                                                            method="POST" class="card bg-white">
                                                             @csrf
                                                             @method('DELETE')
                                                             <p class="mb-2">Are you sure you want to delete?</p>

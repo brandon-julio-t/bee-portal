@@ -51,7 +51,7 @@ class AdminController extends Controller
     public function updateOrCreateClassroom(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|unique:classrooms,name,except,id'
+            'name' => 'required|string|unique:classrooms,name,except,id',
         ]);
         $data = collect($data)
             ->merge(['id' => $request->id ?? Str::uuid()])
@@ -91,6 +91,28 @@ class AdminController extends Controller
             ->orderBy('name')
             ->paginate();
         return view('admin.subjects.index', compact('subjects'));
+    }
+
+    public function updateOrCreateSubject(Request $request)
+    {
+        $data = $request->validate([
+            'code' => 'required|string|unique:subjects,code,except,id',
+            'name' => 'required|string',
+        ]);
+        $data = collect($data)
+            ->merge(['id' => $request->id ?? Str::uuid()])
+            ->all();
+        Subject::updateOrCreate(['id' => $request->id], $data);
+        return redirect()->back()
+            ->with('success', 'Subject ' . ($request->id ? 'updated' : 'created') . '.');
+    }
+
+    public function deleteSubject(Subject $subject)
+    {
+        $isDeleted = $subject->delete();
+        return $isDeleted
+            ? redirect()->back()->with('success', 'Subject deleted.')
+            : redirect()->back()->withErrors('An error occurred while deleting subject.');
     }
 
     public function manageLecturers(Request $request)
