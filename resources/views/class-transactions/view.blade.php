@@ -20,7 +20,7 @@
 
         <section class="card">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold">Class Transaction Students</h2>
+                <h2 class="text-xl font-semibold">Students</h2>
                 @can('create', \App\Models\ClassTransactionStudent::class)
                     <div x-data="{ show: false }">
                         <button @click="show = true" class="btn-primary">

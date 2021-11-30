@@ -94,14 +94,6 @@ class AdminController extends Controller
             ->with('success', "Class transaction <b>{$classTransaction->subject->code}</b> - <b>{$classTransaction->subject->name}</b> updated successfully.");
     }
 
-    public function viewDetailAllocation(ClassTransaction $classTransaction)
-    {
-        $students = $classTransaction->classTransactionStudents->sortBy('name')->map(fn ($e) => $e->student);
-        $details = $classTransaction->classTransactionDetails->sortBy('session');
-        $shifts = Shift::orderBy('start_time')->get();
-        return view('admin.allocation.view', compact('classTransaction', 'students', 'details', 'shifts'));
-    }
-
     public function createStudentAllocation(Request $request, ClassTransaction $classTransaction)
     {
         $data = $request->validate(['student_codes' => 'required|string']);
