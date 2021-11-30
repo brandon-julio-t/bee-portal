@@ -41,7 +41,18 @@ Route::prefix('/user')->group(function () {
 Route::prefix('/admin')->group(function () {
     Route::name('admin.')->group(function () {
         Route::middleware('admin')->group(function () {
-            Route::get('/allocation', [AdminController::class, 'allocation'])->name('allocation');
+
+            Route::prefix('/allocation')->group(function () {
+                Route::name('allocation')->group(function () {
+                    Route::get('/', [AdminController::class, 'allocation'])->name('');
+                    Route::post('/', [AdminController::class, 'createAllocation'])->name('.create');
+                    Route::get('/create', [AdminController::class, 'viewCreateAllocation'])->name('.create.view');
+                    Route::get('/edit/{classTransaction}', [AdminController::class, 'viewUpdateAllocation'])->name('.update.view');
+                    Route::put('/edit/{classTransaction}', [AdminController::class, 'updateAllocation'])->name('.update');
+                    Route::get('/{classTransaction}', [AdminController::class, 'viewDetailAllocation'])->name('.detail');
+                    Route::delete('/{classTransaction}', [AdminController::class, 'deleteAllocation'])->name('.delete');
+                });
+            });
 
 
             Route::prefix('/manage-classrooms')->group(function () {

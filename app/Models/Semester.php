@@ -38,4 +38,9 @@ class Semester extends Model
     protected $casts = [
         'id' => 'string',
     ];
+
+    public static function activeSemester()
+    {
+        return Semester::orderByDesc('active_at')->first();
+    }
 }

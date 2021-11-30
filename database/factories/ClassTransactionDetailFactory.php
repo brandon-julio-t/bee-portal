@@ -18,15 +18,11 @@ class ClassTransactionDetailFactory extends Factory
     public function definition()
     {
         if (self::$i > 12) self::$i = 1;
-        $finish = $this->faker->dateTimeThisYear();
-        $start = $this->faker->dateTimeThisYear($finish);
         return [
             'id' => Str::uuid(),
             'shift_id' => Shift::inRandomOrder()->first()->id,
             'note' => collect($this->faker->paragraph(random_int(3, 5)))->join('\n'),
             'session' => self::$i++,
-            'start_at' => $start,
-            'finish_at' => $finish,
         ];
     }
 }

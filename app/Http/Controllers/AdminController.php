@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\ClassTransaction;
 use App\Models\Semester;
+use App\Models\Shift;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,11 +34,43 @@ class AdminController extends Controller
                     $query->where('name', 'like', "%$q%");
                 });
             })
+            ->orderByDesc('created_at')
             ->paginate();
 
         $semesters = Semester::orderByDesc('active_at')->get();
 
         return view('admin.allocation.index', compact('classTransactions', 'semesters', 'activeSemester'));
+    }
+
+    public function viewCreateAllocation()
+    {
+        $subjects = Subject::orderBy('code')->get();
+        $classrooms = Classroom::orderBy('name')->get();
+        $lecturers = User::where('role', 'lecturer')->orderBy('name')->get();
+        return view('admin.allocation.create', compact('subjects', 'classrooms', 'lecturers'));
+    }
+
+    public function createAllocation(Request $request)
+    {
+        $data = $request->validate([
+            'subject_id' => 'required|exists:subjects,id',
+            'classroom_id' => 'required|exists:classrooms,id',
+            'lecturer_id' => 'required|exists:users,id',
+        ]);
+        $data = collect($data)->merge([
+            'id' => Str::uuid(),
+            'semester_id' => Semester::activeSemester()->id
+        ])->all();
+        ClassTransaction::create($data);
+        return redirect()->route('admin.allocation')
+            ->with('success', 'Class transaction allocated.');
+    }
+
+    public function viewDetailAllocation(ClassTransaction $classTransaction)
+    {
+        $students = $classTransaction->classTransactionStudents->map(fn($e) => $e->student);
+        $details = $classTransaction->classTransactionDetails->sortBy('session');
+        return view('admin.allocation.view', compact('classTransaction', 'students', 'details'));
     }
 
     public function manageClassrooms(Request $request)
@@ -73,7 +106,7 @@ class AdminController extends Controller
         $q = $request->q;
         $subjects = Subject::where('name', 'like', "%$q%")
             ->orWhere('code', 'like', "%$q%")
-            ->orderBy('name')
+            ->orderBy('code')
             ->paginate();
         return view('admin.subjects.index', compact('subjects'));
     }

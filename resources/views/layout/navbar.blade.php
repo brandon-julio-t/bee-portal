@@ -68,12 +68,11 @@ if (Auth::check()) {
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative" x-data="{ open: false }">
-                        <form action="{{ route('user.change-semester') }}" method="POST" id="change-semester-form" class="mt-4">
+                        <form action="{{ route('user.change-semester') }}" method="POST" id="change-semester-form"
+                            class="mt-4">
                             @csrf
-                            <div
-                                x-data="{ semesterId: '{{ Auth::user()->activeSemester() }}' }"
-                                x-init="$watch('semesterId', () => { document.querySelector('#change-semester-form').submit() })"
-                            >
+                            <div x-data="{ semesterId: '{{ Auth::user()->activeSemester() }}' }"
+                                x-init="$watch('semesterId', () => { document.querySelector('#change-semester-form').submit() })">
                                 <select name="semester_id" class="form-input" x-model="semesterId">
                                     @foreach ($semesters as $semester)
                                         <option value="{{ $semester->id }}">

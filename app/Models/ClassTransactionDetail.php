@@ -30,8 +30,6 @@ class ClassTransactionDetail extends Model
         'shift_id',
         'note',
         'session',
-        'start_at',
-        'finish_at',
     ];
 
     /**

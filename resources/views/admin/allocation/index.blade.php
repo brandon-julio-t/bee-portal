@@ -4,14 +4,14 @@
     <div class="container">
         <form action="{{ route('admin.allocation') }}" method="GET" id="semester-filter-form"
             class="flex flex-col sm:flex-row sm:space-x-2 space-y-4 sm:space-y-0 mb-4">
-            <button class="btn-primary justify-center">
+            <a href="{{ route('admin.allocation.create.view') }}" class="btn-primary justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                         clip-rule="evenodd" />
                 </svg>
                 Create
-            </button>
+            </a>
 
             <div class="flex-grow">
                 <input type="text" name="q" placeholder="Search..." class="form-input" value="{{ request()->q }}">
@@ -19,9 +19,9 @@
 
             <div>
                 <div x-data="{ semesterId: '{{ $activeSemester->id }}' }" x-init="$watch('semesterId', () => {
-                                        const form = document.querySelector('#semester-filter-form');
-                                        form.submit();
-                                    })">
+                                            const form = document.querySelector('#semester-filter-form');
+                                            form.submit();
+                                        })">
                     <select name="semester_id" class="form-input" x-model="semesterId">
                         @foreach ($semesters as $semester)
                             <option value="{{ $semester->id }}" @if ($semester->id === $activeSemester->id) selected="selected" @endif>
@@ -76,6 +76,14 @@
                                             {{ $classTransaction->created_at }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="{{ route('admin.allocation.detail', $classTransaction) }}" class="btn-primary">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path
+                                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                </svg>
+                                                Detail
+                                            </a>
                                             <a href="#" class="btn-secondary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon"
                                                     viewBox="0 0 20 20" fill="currentColor">

@@ -26,7 +26,7 @@ class Shift extends Model
      */
     protected $fillable = [
         'id',
-        'name'
+        'description'
     ];
 
     /**
