@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Classroom;
+use App\Models\ClassTransactionStudent;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClassroomPolicy
+class ClassTransactionStudentPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class ClassroomPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Classroom  $classroom
+     * @param  \App\Models\ClassTransactionStudent  $classTransactionStudent
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Classroom $classroom)
+    public function view(User $user, ClassTransactionStudent $classTransactionStudent)
     {
-        return !!$user;
+        //
     }
 
     /**
@@ -48,10 +48,9 @@ class ClassroomPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Classroom  $classroom
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Classroom $classroom)
+    public function update(User $user)
     {
         return $user->isAdmin();
     }
@@ -60,10 +59,9 @@ class ClassroomPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Classroom  $classroom
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Classroom $classroom)
+    public function delete(User $user)
     {
         return $user->isAdmin();
     }
@@ -72,10 +70,9 @@ class ClassroomPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Classroom  $classroom
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Classroom $classroom)
+    public function restore(User $user)
     {
         return $user->isAdmin();
     }
@@ -84,10 +81,9 @@ class ClassroomPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Classroom  $classroom
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Classroom $classroom)
+    public function forceDelete(User $user)
     {
         return $user->isAdmin();
     }

@@ -30,6 +30,7 @@ class ClassTransactionDetail extends Model
         'shift_id',
         'note',
         'session',
+        'transaction_date',
     ];
 
     /**
@@ -41,6 +42,7 @@ class ClassTransactionDetail extends Model
         'id' => 'string',
         'class_transaction_id' => 'string',
         'shift_id' => 'string',
+        'transaction_date' => 'datetime',
     ];
 
     public function shift()

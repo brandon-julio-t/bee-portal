@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Models\ClassTransaction;
+use App\Models\ClassTransactionDetail;
+use App\Models\ClassTransactionStudent;
 use App\Models\Semester;
 use App\Models\Shift;
 use App\Models\Subject;
@@ -11,6 +13,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -68,9 +71,88 @@ class AdminController extends Controller
 
     public function viewDetailAllocation(ClassTransaction $classTransaction)
     {
-        $students = $classTransaction->classTransactionStudents->map(fn($e) => $e->student);
+        $students = $classTransaction->classTransactionStudents->sortBy('name')->map(fn ($e) => $e->student);
         $details = $classTransaction->classTransactionDetails->sortBy('session');
-        return view('admin.allocation.view', compact('classTransaction', 'students', 'details'));
+        $shifts = Shift::orderBy('start_time')->get();
+        return view('admin.allocation.view', compact('classTransaction', 'students', 'details', 'shifts'));
+    }
+
+    public function createStudentAllocation(Request $request, ClassTransaction $classTransaction)
+    {
+        $data = $request->validate(['student_codes' => 'required|string']);
+        $studentCodes = Str::of($data['student_codes'])->split('/[\s,]+/')->all();
+        $students = User::where('role', 'student')->whereIn('code', $studentCodes)->get();
+        $allocatedStudents = collect([]);
+
+        DB::transaction(function () use ($classTransaction, $students, $allocatedStudents) {
+            foreach ($students as $student) {
+                $isExists = ClassTransactionStudent::where('class_transaction_id', $classTransaction->id)
+                    ->where('student_id', $student->id)
+                    ->exists();
+
+                if (!$isExists) {
+                    ClassTransactionStudent::create([
+                        'id' => Str::uuid(),
+                        'class_transaction_id' => $classTransaction->id,
+                        'student_id' => $student->id,
+                    ]);
+                    $allocatedStudents->push($student);
+                }
+            }
+        });
+
+        $message = Str::of('The following students are allocated successfully:');
+        foreach ($allocatedStudents as $student) {
+            $message = $message->append("<p>{$student->code} - {$student->name}</p>");
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function deleteStudentAllocation(ClassTransaction $classTransaction, User $user)
+    {
+        ClassTransactionStudent::where('class_transaction_id', $classTransaction->id)
+            ->where('student_id', $user->id)
+            ->delete();
+        return redirect()->back()
+            ->with('success', "<b>{$user->name}</b> has been removed from <b>{$classTransaction->subject->name}</b>.");
+    }
+
+    public function updateOrCreateDetailAllocation(Request $request, ClassTransaction $classTransaction)
+    {
+        $data = $request->validate([
+            'session' => 'required|numeric',
+            'transaction_date' => 'required|date',
+            'shift_id' => 'required|exists:shifts,id',
+            'note' => 'required|string',
+        ]);
+
+        $isUpdate = ClassTransactionDetail::where('class_transaction_id', $classTransaction->id)
+            ->where('session', $data['session'])
+            ->exists();
+
+        if (!$isUpdate) {
+            $data['id'] = Str::uuid();
+        }
+
+        ClassTransactionDetail::updateOrCreate(
+            [
+                'class_transaction_id' => $classTransaction->id,
+                'session' => $data['session'],
+            ],
+            $data
+        );
+
+        $action = $isUpdate ? 'updated' : 'created';
+        return redirect()->back()
+            ->with('success', "Class transaction detail session <b>{$data['session']}</b> was <b>$action</b> successfully.");
+    }
+
+    public function deleteDetailAllocation(ClassTransactionDetail $classTransactionDetail)
+    {
+        $classTransactionDetail->delete();
+        return redirect()->back()
+            ->with('success', "Class transaction detail session <b>{$classTransactionDetail->session}</b> was deleted successfully.");
     }
 
     public function manageClassrooms(Request $request)

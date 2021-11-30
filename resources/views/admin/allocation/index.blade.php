@@ -76,7 +76,7 @@
                                             {{ $classTransaction->created_at }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('admin.allocation.detail', $classTransaction) }}" class="btn-primary">
+                                            <a href="{{ route('class-transaction.detail', $classTransaction) }}" class="btn-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon"
                                                     viewBox="0 0 20 20" fill="currentColor">
                                                     <path

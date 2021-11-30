@@ -23,6 +23,7 @@ class ClassTransactionDetailFactory extends Factory
             'shift_id' => Shift::inRandomOrder()->first()->id,
             'note' => collect($this->faker->paragraph(random_int(3, 5)))->join('\n'),
             'session' => self::$i++,
+            'transaction_date' => $this->faker->dateTimeThisYear(),
         ];
     }
 }

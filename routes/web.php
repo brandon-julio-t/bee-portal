@@ -30,10 +30,16 @@ Route::prefix('/auth')->group(function () {
     });
 });
 
-Route::prefix('/user')->group(function () {
-    Route::name('user.')->group(function () {
-        Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::prefix('/user')->group(function () {
+        Route::name('user.')->group(function () {
             Route::post('/change-semester', [UserController::class, 'changeSemester'])->name('change-semester');
+        });
+    });
+
+    Route::prefix('/class-transaction')->group(function () {
+        Route::name('class-transaction.')->group(function () {
+            Route::get('/{classTransaction}', [AdminController::class, 'viewDetailAllocation'])->name('detail');
         });
     });
 });
@@ -46,10 +52,18 @@ Route::prefix('/admin')->group(function () {
                 Route::name('allocation')->group(function () {
                     Route::get('/', [AdminController::class, 'allocation'])->name('');
                     Route::post('/', [AdminController::class, 'createAllocation'])->name('.create');
+
                     Route::get('/create', [AdminController::class, 'viewCreateAllocation'])->name('.create.view');
+
                     Route::get('/edit/{classTransaction}', [AdminController::class, 'viewUpdateAllocation'])->name('.update.view');
                     Route::put('/edit/{classTransaction}', [AdminController::class, 'updateAllocation'])->name('.update');
-                    Route::get('/{classTransaction}', [AdminController::class, 'viewDetailAllocation'])->name('.detail');
+
+                    Route::post('/student-allocation/{classTransaction}', [AdminController::class, 'createStudentAllocation'])->name('.student.create');
+                    Route::delete('/student-allocation/{classTransaction}/{user}', [AdminController::class, 'deleteStudentAllocation'])->name('.student.delete');
+
+                    Route::post('/detail-allocation/{classTransaction}', [AdminController::class, 'updateOrCreateDetailAllocation'])->name('.detail.update-or-create');
+                    Route::delete('/detail-allocation/{classTransactionDetail}', [AdminController::class, 'deleteDetailAllocation'])->name('.detail.delete');
+
                     Route::delete('/{classTransaction}', [AdminController::class, 'deleteAllocation'])->name('.delete');
                 });
             });
@@ -86,5 +100,6 @@ Route::prefix('/admin')->group(function () {
     });
 });
 
-Route::permanentRedirect('/', '/home');
+Route::permanentRedirect('/', '/home')->name('index');
+Route::permanentRedirect('/login', '/auth/login')->name('login');
 Route::get('/home', HomeController::class)->name('home');
