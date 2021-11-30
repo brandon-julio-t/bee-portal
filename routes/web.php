@@ -55,8 +55,8 @@ Route::prefix('/admin')->group(function () {
 
                     Route::get('/create', [AdminController::class, 'viewCreateAllocation'])->name('.create.view');
 
-                    Route::get('/edit/{classTransaction}', [AdminController::class, 'viewUpdateAllocation'])->name('.update.view');
-                    Route::put('/edit/{classTransaction}', [AdminController::class, 'updateAllocation'])->name('.update');
+                    Route::get('/update/{classTransaction}', [AdminController::class, 'viewUpdateAllocation'])->name('.update.view');
+                    Route::put('/update/{classTransaction}', [AdminController::class, 'updateAllocation'])->name('.update');
 
                     Route::post('/student-allocation/{classTransaction}', [AdminController::class, 'createStudentAllocation'])->name('.student.create');
                     Route::delete('/student-allocation/{classTransaction}/{user}', [AdminController::class, 'deleteStudentAllocation'])->name('.student.delete');
@@ -65,6 +65,7 @@ Route::prefix('/admin')->group(function () {
                     Route::delete('/detail-allocation/{classTransactionDetail}', [AdminController::class, 'deleteDetailAllocation'])->name('.detail.delete');
 
                     Route::delete('/{classTransaction}', [AdminController::class, 'deleteAllocation'])->name('.delete');
+                    Route::post('/restore/{classTransaction}', [AdminController::class, 'restoreAllocation'])->name('.restore');
                 });
             });
 

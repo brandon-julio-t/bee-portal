@@ -155,11 +155,12 @@ if (Auth::check()) {
             </li>
 
             @php
-                $paths = Str::of(request()->getRequestUri())
+
+                $paths = Str::of(request()->path())
                     ->split('[/]')
                     ->filter(fn($e) => !empty($e))
-                    ->map(fn($e) => Str::replace('-', ' ', $e))
-                    ->map(fn($e) => Str::title($e));
+                    ->map(fn($e) => Str::isUuid($e) ? $e : Str::replace('-', ' ', $e))
+                    ->map(fn($e) => Str::isUuid($e) ? $e : Str::title($e));
                 $currentPath = '';
             @endphp
 
