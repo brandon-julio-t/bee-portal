@@ -214,7 +214,7 @@
                                 <tbody>
                                     @foreach ($details as $detail)
                                         <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-gray-900">
                                                 {{ $detail->session }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

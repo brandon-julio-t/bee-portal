@@ -102,4 +102,5 @@ Route::prefix('/admin')->group(function () {
 
 Route::permanentRedirect('/', '/home')->name('index');
 Route::permanentRedirect('/login', '/auth/login')->name('login');
+Route::permanentRedirect('/admin', '/');
 Route::get('/home', HomeController::class)->name('home');
