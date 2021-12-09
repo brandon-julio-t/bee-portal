@@ -1,6 +1,6 @@
 @php
 $menus = [];
-$semesters = \App\Models\Semester::orderByDesc('active_at')->get();
+$semesters = [];
 
 if (Auth::check()) {
     $user = Auth::user();
@@ -8,6 +8,7 @@ if (Auth::check()) {
         ->orWhere('role', 'all')
         ->orderBy('name')
         ->get();
+    $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
 }
 @endphp
 
@@ -68,12 +69,11 @@ if (Auth::check()) {
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative" x-data="{ open: false }">
-                        <form action="{{ route('user.change-semester') }}" method="POST" id="change-semester-form" class="mt-4">
+                        <form action="{{ route('user.change-semester') }}" method="POST" id="change-semester-form"
+                            class="mt-4">
                             @csrf
-                            <div
-                                x-data="{ semesterId: '{{ Auth::user()->activeSemester() }}' }"
-                                x-init="$watch('semesterId', () => { document.querySelector('#change-semester-form').submit() })"
-                            >
+                            <div x-data="{ semesterId: '{{ Auth::user()->activeSemester() }}' }"
+                                x-init="$watch('semesterId', () => { document.querySelector('#change-semester-form').submit() })">
                                 <select name="semester_id" class="form-input" x-model="semesterId">
                                     @foreach ($semesters as $semester)
                                         <option value="{{ $semester->id }}">
@@ -97,8 +97,6 @@ if (Auth::check()) {
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem"
-                                tabindex="-1" id="user-menu-item-0">Profile</a>
                             <form action="{{ route('auth.logout') }}" method="POST" class=w-full>
                                 @csrf
                                 <button type="submit"
