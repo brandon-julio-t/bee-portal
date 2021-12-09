@@ -27,7 +27,7 @@
 }
 
 .card {
-    @apply bg-white overflow-hidden shadow rounded-lg px-4 py-5 sm:p-6;
+    @apply bg-white overflow-hidden shadow hover:shadow-md rounded-lg px-4 py-5 sm:p-6 transition-all;
 }
 
 .form-input {
@@ -36,4 +36,8 @@
 
 .form-check {
     @apply h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded;
+}
+
+.modal {
+    @apply fixed top-0 left-0 right-0 bottom-0 w-screen h-screen bg-black bg-opacity-10 z-50;
 }

@@ -158,7 +158,7 @@
 
         {{-- Create Modal --}}
         <div x-cloak x-transition x-show="showModal">
-            <div class="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen bg-black bg-opacity-10">
+            <div class="modal">
                 <div class="max-w-md mx-auto mt-8">
                     <form action="{{ route('admin.manage-users.update-or-create') }}" method="POST"
                         class="card grid grid-cols-1 gap-4">

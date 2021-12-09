@@ -19,8 +19,7 @@ class CreateClassTransactionDetailsTable extends Migration
             $table->foreignUuid('shift_id')->constrained();
             $table->text('note');
             $table->integer('session');
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('finish_at')->nullable();
+            $table->date('transaction_date');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function activeSemester()
     {
-        return $this->semester ?? Semester::orderByDesc('active_at')->first();
+        return $this->semester ?? Semester::activeSemester();
     }
 
     public function isAdmin()
