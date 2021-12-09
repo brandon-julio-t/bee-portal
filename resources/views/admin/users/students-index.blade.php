@@ -74,7 +74,7 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button
-                                                    @click="() => { showModal = true; action = 'Update'; userId = '{{ $student->id }}'; userName = '{{ $student->name }}'; userEmail = '{{ $student->email }}'; }"
+                                                    @click="() => { showModal = true; action = 'Update'; userId = '{{ $student->id }}'; userName = '{{ addslashes($student->name) }}'; userEmail = '{{ $student->email }}'; }"
                                                     class="btn-secondary">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon"
                                                         viewBox="0 0 20 20" fill="currentColor">

@@ -7,8 +7,8 @@
         @method('PUT')
         <h2 class="text-lg font-semibold col-span-12">Update Allocation</h2>
 
-        <label for="subject" class="col-span-2 text-right font-medium">Subject</label>
-        <select name="subject_id" id="subject" class="form-input col-span-10">
+        <label for="subject" class="col-span-12 md:col-span-2 md:text-right font-medium">Subject</label>
+        <select name="subject_id" id="subject" class="form-input col-span-12 md:col-span-10">
             @foreach ($subjects as $subject)
                 <option value="{{ $subject->id }}" @if ($classTransaction->subject_id === $subject->id) selected @endif>
                     {{ $subject->code }} - {{ $subject->name }}
@@ -16,8 +16,8 @@
             @endforeach
         </select>
 
-        <label for="classroom" class="col-span-2 text-right font-medium">Classroom</label>
-        <select name="classroom_id" id="classroom" class="form-input col-span-10">
+        <label for="classroom" class="col-span-12 md:col-span-2 md:text-right font-medium">Classroom</label>
+        <select name="classroom_id" id="classroom" class="form-input col-span-12 md:col-span-10">
             @foreach ($classrooms as $classroom)
                 <option value="{{ $classroom->id }}" @if ($classTransaction->classroom_id === $classroom->id) selected @endif>
                     {{ $classroom->name }}
@@ -25,8 +25,8 @@
             @endforeach
         </select>
 
-        <label for="lecturer" class="col-span-2 text-right font-medium">Lecturer</label>
-        <select name="lecturer_id" id="lecturer" class="form-input col-span-10">
+        <label for="lecturer" class="col-span-12 md:col-span-2 md:text-right font-medium">Lecturer</label>
+        <select name="lecturer_id" id="lecturer" class="form-input col-span-12 md:col-span-10">
             @foreach ($lecturers as $lecturer)
                 <option value="{{ $lecturer->id }}" @if ($classTransaction->lecturer_id === $lecturer->id) selected @endif>
                     {{ $lecturer->name }} ({{ $lecturer->code }})

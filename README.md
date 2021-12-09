@@ -5,10 +5,10 @@ Judul: uman (university manager)
 
 ## Features
 
-- semester aktif
-- ada transaksi yg gabungin kelas, jadwal, mhs, dan pengajar2nya
+- ✅ semester aktif
+- ✅ ada transaksi yg gabungin kelas, jadwal, mhs, dan pengajar2nya
 - datanya difilter per semester
-- bisa login sbg mhs, pengajar, dan admin
+- ✅ bisa login sbg mhs, pengajar, dan admin
 - forum reply infinite scrolling (ajax & api + authorize hanya mhs/dosen yg ada di kelas itu yg bisa view)
 - mhs (middleware & authorization)
   - view courses
@@ -20,10 +20,10 @@ Judul: uman (university manager)
   - bikin assignment per kelas
   - crud forum & replynya (validation & error messages)
 - admin (middleware & authorization)
-  - alokasi transaksi mhs, kelas, dan pengajar
-  - crud kelas (validation & error messages & pagination w/ searching)
-  - crud mhs (validation & error messages & pagination w/ searching)
-  - crud pengajar (validation & error messages & pagination w/ searching)
+  - ✅ alokasi transaksi mhs, kelas, dan pengajar
+  - ✅ crud kelas (validation & error messages & pagination w/ searching)
+  - ✅ crud mhs (validation & error messages & pagination w/ searching)
+  - ✅ crud pengajar (validation & error messages & pagination w/ searching)
 
 ## Master Tables
 
