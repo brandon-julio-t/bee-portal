@@ -49,4 +49,9 @@ class ClassTransactionDetail extends Model
     {
         return $this->belongsTo(Shift::class);
     }
+
+    public function classTransaction()
+    {
+        return $this->belongsTo(ClassTransaction::class);
+    }
 }

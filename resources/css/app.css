@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+[x-cloak] {
+    display: none !important;
+}
+
 .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }

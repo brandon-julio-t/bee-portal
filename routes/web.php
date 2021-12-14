@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/class-transaction')->group(function () {
         Route::name('class-transaction.')->group(function () {
+            Route::get('/', [ClassTransactionController::class, 'index'])->name('index');
             Route::get('/{classTransaction}', [ClassTransactionController::class, 'view'])->name('detail');
         });
     });

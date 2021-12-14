@@ -11,6 +11,6 @@ class HomeController extends Controller
     {
         if (!Auth::check()) return redirect()->route('auth.login.view');
         if (Auth::user()->role === 'admin') return redirect()->route('admin.allocation');
-        return view('home');
+        return redirect()->route('class-transaction.index');
     }
 }

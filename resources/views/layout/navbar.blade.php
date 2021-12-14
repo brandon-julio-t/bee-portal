@@ -5,9 +5,9 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
 <nav class="bg-white shadow" x-data="{ openMobileMenu: false }">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex justify-end h-32 md:h-auto">
-            <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
+            <div class="absolute inset-y-0 left-0 flex items-center xl:hidden">
                 <!-- Mobile menu button -->
-                <button @click="alert('todo')" type="button"
+                <button @click="show = true" type="button"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                     aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>

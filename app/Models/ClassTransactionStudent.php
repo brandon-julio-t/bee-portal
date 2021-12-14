@@ -45,4 +45,9 @@ class ClassTransactionStudent extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function classTransaction()
+    {
+        return $this->belongsTo(ClassTransaction::class);
+    }
 }
