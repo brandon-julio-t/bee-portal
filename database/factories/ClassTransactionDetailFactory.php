@@ -30,7 +30,7 @@ class ClassTransactionDetailFactory extends Factory
         return [
             'id' => Str::uuid(),
             'shift_id' => Shift::inRandomOrder()->first()->id,
-            'note' => collect($this->faker->paragraph(random_int(3, 5)))->join('\n'),
+            'note' => collect($this->faker->paragraph(random_int(3, 5)))->join('\n\n'),
             'session' => self::$i++,
             'transaction_date' => self::$transaction_date,
         ];

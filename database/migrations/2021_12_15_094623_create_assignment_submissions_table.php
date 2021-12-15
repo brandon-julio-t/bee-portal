@@ -1,11 +1,12 @@
 <?php
 
-use App\Models\ClassTransaction;
+use App\Models\Assignment;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassTransactionStudentsTable extends Migration
+class CreateAssignmentSubmissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +15,12 @@ class CreateClassTransactionStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_transaction_students', function (Blueprint $table) {
+        Schema::create('assignment_submissions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignIdFor(ClassTransaction::class)->constrained();
-            $table->foreignUuid('student_id')->constrained('users');
+            $table->foreignIdFor(Assignment::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
+            $table->string('attachment');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateClassTransactionStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class_transaction_students');
+        Schema::dropIfExists('assignment_submissions');
     }
 }

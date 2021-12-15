@@ -44,6 +44,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/{classTransaction}', [ClassTransactionController::class, 'view'])->name('detail');
         });
     });
+
+    Route::name('general.')->group(function () {
+        Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');  
+        Route::get('/courses', [UserController::class, 'courses'])->name('courses');
+        Route::get('/forums', [UserController::class, 'forums'])->name('forums');
+        Route::get('/schedules', [UserController::class, 'schedules'])->name('schedules');
+    });
 });
 
 Route::prefix('/admin')->group(function () {

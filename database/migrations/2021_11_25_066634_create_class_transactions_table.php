@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Classroom;
+use App\Models\Semester;
+use App\Models\Subject;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +18,9 @@ class CreateClassTransactionsTable extends Migration
     {
         Schema::create('class_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('subject_id')->constrained();
-            $table->foreignUuid('classroom_id')->constrained();
-            $table->foreignUuid('semester_id')->constrained();
+            $table->foreignIdFor(Subject::class)->constrained();
+            $table->foreignIdFor(Classroom::class)->constrained();
+            $table->foreignIdFor(Semester::class)->constrained();
             $table->foreignUuid('lecturer_id')->constrained('users');
             $table->timestamps();
             $table->softDeletes();

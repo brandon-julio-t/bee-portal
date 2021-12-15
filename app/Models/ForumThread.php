@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @mixin IdeHelperClassTransactionDetail
- */
-class ClassTransactionDetail extends Model
+class ForumThread extends Model
 {
     use HasFactory;
 
@@ -26,11 +23,11 @@ class ClassTransactionDetail extends Model
      */
     protected $fillable = [
         'id',
+        'user_id',
         'class_transaction_id',
-        'shift_id',
-        'note',
-        'session',
-        'transaction_date',
+        'title',
+        'content',
+        'attachment',
     ];
 
     /**
@@ -40,23 +37,10 @@ class ClassTransactionDetail extends Model
      */
     protected $casts = [
         'id' => 'string',
-        'class_transaction_id' => 'string',
-        'shift_id' => 'string',
-        'transaction_date' => 'datetime',
     ];
 
-    public function shift()
+    public function forumReplies()
     {
-        return $this->belongsTo(Shift::class);
-    }
-
-    public function classTransaction()
-    {
-        return $this->belongsTo(ClassTransaction::class);
-    }
-
-    public function forumThreads()
-    {
-        return $this->hasMany(ForumThread::class);
+        return $this->hasMany(ForumReply::class);
     }
 }

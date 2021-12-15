@@ -17,21 +17,20 @@ class MenuSeeder extends Seeder
     {
         $routes = [
             'admin' => ['Allocation', 'Manage Classrooms', 'Manage Students', 'Manage Subjects', 'Manage Lecturers'],
-            'student' => [],
+            'general' => ['Dashboard', 'Courses', 'Forums', 'Schedules'],
+            'students' => [],
             'lecturer' => [],
         ];
 
         foreach ($routes as $role => $menus) {
-            foreach ($menus as $menu) {
-                Menu::create(
-                    [
-                        'id' => Str::uuid(),
-                        'name' => $menu,
-                        'route_name' => Str::kebab($menu),
-                        'role' => $role,
-                    ]
-                );
-            }
+            Menu::insert(
+                collect($menus)->map(fn ($menu) => [
+                    'id' => Str::uuid(),
+                    'name' => $menu,
+                    'route_name' => Str::kebab($menu),
+                    'role' => $role,
+                ])->all()
+            );
         }
     }
 }
