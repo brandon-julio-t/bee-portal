@@ -51,27 +51,59 @@
             </div>
         </form>
 
-        <div class="card grid grid-cols-1 gap-4">
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('forumReplies', () => ({
+                    url: '{{ route('forums.replies', $forumThread) }}',
+                    isLoading: false,
+                    replies: [],
+                    fetchReplies() {
+                        if (this.isLoading || !this.url) return;
+                        (async () => {
+                            this.isLoading = true;
+                            const resp = await axios.get(this.url);
+                            this.replies = [...this.replies, ...resp.data.data];
+                            this.url = resp.data.next_page_url;
+                            this.isLoading = false;
+                        })();
+                    }
+                }));
+            });
+        </script>
+        <div x-data="forumReplies" class="card grid grid-cols-1 gap-4">
             <h2 class="text-xl font-bold">Replies</h2>
 
-            @forelse ($replies as $reply)
-                <div class="card">
-                    <h3 class="text-md font-bold">{{ $reply->user->name }}</h3>
-                    <small>{{ $forumThread->created_at->toDayDateTimeString() }}</small>
-                    <div class="my-4">{!! nl2br(e($reply->content)) !!}</div>
-                    @if ($reply->attachment)
-                        <div>
-                            <a href="{{ route('storage.download', $reply->attachment) }}" class="btn">
+            <div x-cloak x-transition x-show="replies.length" class="grid grid-cols-1 gap-4 mb-4">
+                <template x-for="reply in replies">
+                    <div class="card">
+                        <h3 class="text-md font-bold" x-text="reply.user?.name ?? '-'"></h3>
+                        <small x-text="new Date(reply.created_at).toLocaleString()"></small>
+                        <div class="my-4" x-text="reply.content"></div>
+                        <div x-cloak x-transition x-show="reply.attachment">
+                            <a :href="`/storage/${reply.attachment}`" class="btn">
                                 Download Attachments
                             </a>
                         </div>
-                    @endif
-                </div>
-            @empty
-                <h3 class="text-lg font-bold text-center">
-                    No reply yet.
-                </h3>
-            @endforelse
+                    </div>
+                </template>
+            </div>
+
+            <div x-intersect="fetchReplies()" x-show="!isLoading && url" class="h-8"></div>
+
+            <div x-cloack x-transition x-show="isLoading" class="flex justify-center">
+                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-black" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+            </div>
+
+
+            <h3 x-cloak x-transition x-show="replies.length === 0 && !isLoading" class="text-lg font-bold text-center">
+                No reply yet.
+            </h3>
         </div>
     </div>
 @endsection

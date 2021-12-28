@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Models\ForumReply;
+use App\Models\ForumThread;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::prefix('forums')->group(function () {
+        Route::name('forums.')->group(function () {
+            Route::get('/{forumThread}/replies', function (ForumThread $forumThread) {
+                $replies = ForumReply::with('user')
+                    ->where('forum_thread_id', $forumThread->id)
+                    ->paginate(3);
+                return $replies;
+            })->name('replies');
+        });
+    });
 });

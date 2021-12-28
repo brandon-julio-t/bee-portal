@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ClassTransaction::class, 'lecturer_id');
     }
+
+    public function forumReplies()
+    {
+        return $this->hasMany(ForumReply::class);
+    }
 }
