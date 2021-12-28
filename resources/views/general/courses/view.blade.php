@@ -13,8 +13,6 @@
                 <div class="col-span-10">{{ $classTransaction->classroom->name }}</div>
                 <div class="col-span-2 font-medium">Lecturer</div>
                 <div class="col-span-10">{{ $classTransaction->lecturer->name }}</div>
-                <div class="col-span-2 font-medium">Created At</div>
-                <div class="col-span-10">{{ $classTransaction->created_at->toDayDateTimeString() }}</div>
             </div>
         </section>
 

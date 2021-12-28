@@ -69,7 +69,7 @@
                             <tbody>
                                 @foreach ($classTransactions as $classTransaction)
                                     <tr x-data
-                                        @click="location.href = '{{ route('class-transaction.detail', $classTransaction) }}'"
+                                        @click="location.href = '{{ route('general.courses.view', $classTransaction) }}'"
                                         @if ($classTransaction->trashed()) class="{{ $loop->odd ? 'bg-red-50' : 'bg-red-100' }} hover:bg-red-200 cursor-pointer" @else class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100 cursor-pointer" @endif>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {{ $classTransaction->subject->code }} - {{ $classTransaction->subject->name }}

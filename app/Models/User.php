@@ -63,9 +63,9 @@ class User extends Authenticatable
         return $this->belongsTo(Semester::class);
     }
 
-    public function activeSemester()
+    public function getActiveSemesterAttribute()
     {
-        return $this->semester ?? Semester::activeSemester();
+        return $this->semester ?? Semester::getActiveSemester();
     }
 
     public function isAdmin()

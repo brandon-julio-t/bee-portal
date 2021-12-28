@@ -18,7 +18,7 @@ if (Auth::check()) {
     <div class="grid grid-cols-1 gap-4">
         @foreach ($menus as $menu)
             <a href="{{ route($menu->role . '.' . $menu->route_name) }}"
-                class="{{ request()->is("*$menu->route_name*") ? 'border-l-4 border-sky-500 bg-sky-300 hover:bg-sky-400' : 'bg-sky-200 hover:bg-sky-300' }} px-4 py-2 rounded">
+                class="{{ request()->is("*$menu->route_name*") ? 'border-l-4 border-sky-500 bg-sky-300 hover:bg-sky-400 font-bold' : 'bg-sky-200 hover:bg-sky-300' }} px-4 py-2 rounded">
                 {{ $menu->name }}
             </a>
         @endforeach
@@ -30,7 +30,7 @@ if (Auth::check()) {
         <div class="grid grid-cols-1 gap-4">
             @foreach ($menus as $menu)
                 <a href="{{ route($menu->role . '.' . $menu->route_name) }}"
-                    class="{{ request()->is("*$menu->route_name*") ? 'border-l-4 border-sky-500 bg-sky-300 hover:bg-sky-400' : 'bg-sky-200 hover:bg-sky-300' }} px-4 py-2 rounded">
+                    class="{{ request()->is("*$menu->route_name*") ? 'border-l-4 border-sky-500 bg-sky-300 hover:bg-sky-400 font-bold' : 'bg-sky-200 hover:bg-sky-300' }} px-4 py-2 rounded">
                     {{ $menu->name }}
                 </a>
             @endforeach

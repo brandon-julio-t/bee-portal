@@ -62,7 +62,7 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
                         <form action="{{ route('user.change-semester') }}" method="POST" id="change-semester-form"
                             class="mt-4">
                             @csrf
-                            <div x-data="{ semesterId: '{{ Auth::user()->activeSemester() }}' }"
+                            <div x-data="{ semesterId: '{{ Auth::user()->active_semester->id }}' }"
                                 x-init="$watch('semesterId', () => { document.querySelector('#change-semester-form').submit() })">
                                 <select name="semester_id" class="form-input" x-model="semesterId">
                                     @foreach ($semesters as $semester)

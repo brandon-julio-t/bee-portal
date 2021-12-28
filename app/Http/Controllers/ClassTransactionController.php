@@ -12,6 +12,6 @@ class ClassTransactionController extends Controller
         $students = $classTransaction->classTransactionStudents->sortBy('name')->map(fn ($e) => $e->student);
         $details = $classTransaction->classTransactionDetails->sortBy('session');
         $shifts = Shift::orderBy('start_time')->get();
-        return view('class-transactions.view', compact('classTransaction', 'students', 'details', 'shifts'));
+        return view('general.courses.view', compact('classTransaction', 'students', 'details', 'shifts'));
     }
 }

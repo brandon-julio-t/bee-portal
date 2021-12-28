@@ -25,7 +25,7 @@ class AdminController extends Controller
         $semesterId = $request->semester_id;
         $activeSemester = $semesterId
             ? Semester::find($semesterId)
-            : Auth::user()->activeSemester();
+            : Auth::user()->active_semester;
 
         $query = $request->has('include_deleted')
             ? ClassTransaction::withTrashed()
@@ -59,7 +59,7 @@ class AdminController extends Controller
         ]);
         $data = collect($data)->merge([
             'id' => Str::uuid(),
-            'semester_id' => Semester::activeSemester()->id
+            'semester_id' => Semester::getActiveSemester()->id
         ])->all();
         $classTransaction = ClassTransaction::create($data);
         return redirect()->route('admin.allocation')

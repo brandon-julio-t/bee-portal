@@ -33,7 +33,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($classes as $class)
-                                            <tr @click="location.href = '{{ route('class-transaction.detail', $class->classTransaction) }}'"
+                                            <tr @click="location.href = '{{ route('general.courses.view', $class->classTransaction) }}'"
                                                 class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100 cursor-pointer">
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                     [{{ $class->classTransaction->subject->code }}]
@@ -121,7 +121,7 @@
                                             </tr>
                                         @empty
                                             <tr class="bg-white">
-                                                <td class="text-center py-4 font-bold" colspan="4">
+                                                <td class="text-center py-4 font-bold" colspan="5">
                                                     No forums yet.
                                                 </td>
                                             </tr>
@@ -129,7 +129,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{ $forums->links() }}
+                            {{ $forums->withQueryString()->links() }}
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                 <div class="flex flex-col">
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mb-4">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
                                         <tr>
@@ -199,7 +199,7 @@
                                             </tr>
                                         @empty
                                             <tr class="bg-white">
-                                                <td class="text-center py-4 font-bold" colspan="4">
+                                                <td class="text-center py-4 font-bold" colspan="6">
                                                     No assignments yet.
                                                 </td>
                                             </tr>
@@ -207,7 +207,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{ $assignments->links() }}
+                            {{ $assignments->withQueryString()->links() }}
                         </div>
                     </div>
                 </div>

@@ -39,7 +39,7 @@ class Semester extends Model
         'id' => 'string',
     ];
 
-    public static function activeSemester()
+    public static function getActiveSemester()
     {
         return Semester::orderByDesc('active_at')->first();
     }
