@@ -100,7 +100,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($forums as $forum)
-                                            <tr
+                                            <tr @click="location.href = '{{ route('general.forums.view', $forum) }}'"
                                                 class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100 cursor-pointer">
                                                 <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
                                                     {{ $forum->title }}

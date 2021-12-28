@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassTransactionController;
+use App\Http\Controllers\ForumThreadController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StorageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,16 +47,36 @@ Route::middleware('auth')->group(function () {
 
     Route::name('general.')->group(function () {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-        Route::get('/courses', [UserController::class, 'courses'])->name('courses');
-        Route::get('/courses/{classTransaction}', [ClassTransactionController::class, 'view'])->name('courses.view');
-        Route::get('/forums', [UserController::class, 'forums'])->name('forums');
+
+        Route::prefix('/courses')->group(function () {
+            Route::name('courses')->group(function () {
+                Route::get('/', [UserController::class, 'courses'])->name('');
+                Route::get('/{classTransaction}', [ClassTransactionController::class, 'view'])->name('.view');
+            });
+        });
+
+        Route::prefix('/forums')->group(function () {
+            Route::name('forums')->group(function () {
+                Route::get('/', [UserController::class, 'forums'])->name('');
+                Route::post('/{classTransactionDetail}', [ForumThreadController::class, 'create'])->name('.create');
+                Route::get('/{forumThread}', [ForumThreadController::class, 'view'])->name('.view');
+                Route::post('/{forumThread}', [ForumThreadController::class, 'replyThread'])->name('.reply-thread');
+            });
+        });
+
         Route::get('/schedules', [UserController::class, 'schedules'])->name('schedules');
+    });
+
+    Route::prefix('storage')->group(function () {
+        Route::name('storage.')->group(function () {
+            Route::get('/{filename}', [StorageController::class, 'download'])->where('filename', '.*')->name('download');
+        });
     });
 });
 
-Route::prefix('/admin')->group(function () {
-    Route::name('admin.')->group(function () {
-        Route::middleware('admin')->group(function () {
+Route::middleware('admin')->group(function () {
+    Route::prefix('/admin')->group(function () {
+        Route::name('admin.')->group(function () {
 
             Route::prefix('/allocation')->group(function () {
                 Route::name('allocation')->group(function () {

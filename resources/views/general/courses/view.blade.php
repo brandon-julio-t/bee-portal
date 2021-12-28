@@ -222,7 +222,7 @@
                                                 {{ $detail->shift->description }} ({{ $detail->shift->start_time }} -
                                                 {{ $detail->shift->end_time }})
                                             </td>
-                                            <td class="px-6 py-4 whitespace-pre-line text-sm text-gray-500">
+                                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">
                                                 {!! nl2br(e($detail->note)) !!}
                                             </td>
                                             @can('delete', \App\Models\ClassTransactionStudent::class)

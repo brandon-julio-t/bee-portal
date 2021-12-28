@@ -20,7 +20,7 @@ class ForumReplyFactory extends Factory
         return [
             'id' => Str::uuid(),
             'user_id' => User::inRandomOrder()->first()->id,
-            'content' => collect($this->faker->paragraphs())->join('\n\n'),
+            'content' => collect($this->faker->paragraphs())->join("\n\n"),
             'attachment' => $this->faker->boolean ? 'answer.txt' : null,
         ];
     }

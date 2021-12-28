@@ -41,7 +41,7 @@ class ClassTransactionSeeder extends Seeder
                     ->state(fn (array $attributes, ClassTransaction $classTransaction) => ['class_transaction_id' => $classTransaction->id])
                     ->has(
                         ForumThread::factory()
-                            ->count(3)
+                            ->count(30)
                             ->state(fn (array $attributes, ClassTransactionDetail $classTransactionDetail) => ['class_transaction_detail_id' => $classTransactionDetail->id])
                             ->has(
                                 ForumReply::factory()

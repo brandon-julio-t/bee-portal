@@ -73,7 +73,8 @@ class UserController extends Controller
                 && $ctd->transaction_date->day <= $now->day
         )->sortByDesc('transaction_date')->first()->session;
 
-        $currentSession = $request->get('s') ?? $latestSession;
+        $currentSession = intval($request->get('s') ?? $latestSession);
+        $currentClassTransactionDetail = $classTransactionDetails->filter(fn (ClassTransactionDetail $ctd) => $ctd->session === $currentSession)->first();
 
         $forums = ForumThread::whereIn(
             'class_transaction_detail_id',
@@ -82,7 +83,19 @@ class UserController extends Controller
             ->orderByDesc('created_at')
             ->paginate();
 
-        return view('general.forums.index', compact('classTransactions', 'classTransaction', 'classTransactionDetails', 'sessions', 'latestSession', 'currentSession', 'forums'));
+        return view(
+            'general.forums.index',
+            compact(
+                'classTransactions',
+                'classTransaction',
+                'classTransactionDetails',
+                'sessions',
+                'latestSession',
+                'currentSession',
+                'currentClassTransactionDetail',
+                'forums'
+            )
+        );
     }
 
     private function getCurrentUserClassTransactions()
