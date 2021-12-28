@@ -44,4 +44,14 @@ class Assignment extends Model
     {
         return $this->hasMany(AssignmentSubmission::class);
     }
+
+    public function classTransaction()
+    {
+        return $this->belongsTo(ClassTransaction::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

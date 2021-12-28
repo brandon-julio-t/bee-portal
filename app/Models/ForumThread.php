@@ -24,7 +24,7 @@ class ForumThread extends Model
     protected $fillable = [
         'id',
         'user_id',
-        'class_transaction_id',
+        'class_transaction_detail_id',
         'title',
         'content',
         'attachment',
@@ -42,5 +42,15 @@ class ForumThread extends Model
     public function forumReplies()
     {
         return $this->hasMany(ForumReply::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function classTransactionDetail()
+    {
+        return $this->belongsTo(ClassTransactionDetail::class);
     }
 }
