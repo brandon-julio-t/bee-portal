@@ -8,7 +8,7 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
             <div class="absolute inset-y-0 left-0 flex items-center xl:hidden">
                 <!-- Mobile menu button -->
                 <button @click="show = true" type="button"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500"
                     aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <!--
@@ -37,23 +37,6 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
                     </svg>
                 </button>
             </div>
-            {{-- <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                    @auth
-                        <a href="{{ route('home') }}"
-                            class="{{ request()->is('home') ? 'border-indigo-500 text-gray-900 inline-flex items-end pb-2 px-1 pt-1 border-b-2 text-sm font-medium' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-end pb-2 px-1 pt-1 border-b-2 text-sm font-medium' }}">
-                            Home
-                        </a>
-                    @endauth
-                    @foreach ($menus as $menu)
-                        <a href="{{ route($menu->role . '.' . $menu->route_name) }}"
-                            class="{{ request()->is("*$menu->route_name*") ? 'border-indigo-500 text-gray-900 inline-flex items-end pb-2 px-1 pt-1 border-b-2 text-sm font-medium' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-end pb-2 px-1 pt-1 border-b-2 text-sm font-medium' }}">
-                            {{ $menu->name }}
-                        </a>
-                    @endforeach
-                </div>
-            </div> --}}
 
             @auth
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -76,7 +59,7 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
 
                         <div class="my-2">
                             <button @click="open = !open" type="button"
-                                class="ml-auto bg-white rounded px-4 py-2 hover:bg-gray-100 font-medium flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                class="ml-auto bg-white rounded px-4 py-2 hover:bg-gray-100 font-medium flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
                                 <span>{{ Auth::user()->name }}</span>
@@ -105,25 +88,6 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
             @endauth
         </div>
     </div>
-
-    <!-- Mobile menu, show/hide based on menu state. -->
-    {{-- <div x-cloak x-transition x-show="openMobileMenu" id="mobile-menu">
-        <div class="pt-2 pb-4 space-y-1">
-            <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-            @auth
-                <a href="{{ route('home') }}"
-                    class="{{ request()->is('home') ? 'bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium' : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium' }}">
-                    Home
-                </a>
-            @endauth
-            @foreach ($menus as $menu)
-                <a href="{{ route($menu->role . '.' . $menu->route_name) }}"
-                    class="{{ request()->is("*$menu->route_name*") ? 'bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium' : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium' }}">
-                    {{ $menu->name }}
-                </a>
-            @endforeach
-        </div>
-    </div> --}}
 </nav>
 
 @auth

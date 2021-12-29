@@ -26,6 +26,12 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Semester changed.');
     }
 
+    public function courses()
+    {
+        $classes = $this->getCurrentUserClassTransactions();
+        return view('general.courses.index', compact('classes'));
+    }
+
     public function dashboard()
     {
         $classes = $this->getCurrentUserClassTransactions()->flatMap(fn (ClassTransaction $ct) => $ct->classTransactionDetails);
@@ -46,12 +52,6 @@ class UserController extends Controller
         )->sortByDesc(fn (ClassTransactionDetail $ctd) => $ctd->shift->description);
 
         return view('general.dashboard', compact('classes', 'forums', 'assignments'));
-    }
-
-    public function courses()
-    {
-        $classes = $this->getCurrentUserClassTransactions();
-        return view('general.courses.index', compact('classes'));
     }
 
     public function forums(Request $request)
@@ -96,6 +96,33 @@ class UserController extends Controller
                 'forums'
             )
         );
+    }
+
+    public function schedules()
+    {
+        $now = now()->toFormattedDateString();
+        $startDate = now()->startOfWeek();
+        $endDate = now()->endOfWeek();
+        $classCalendar = [];
+
+        $curr = now()->startOfWeek();
+        while ($curr->lessThan($endDate)) {
+            $classCalendar[$curr->toFormattedDateString()] = [];
+            $curr->addDay();
+        }
+
+        $classesGroupedByDates = $this->getCurrentUserClassTransactions()
+            ->flatMap(fn (ClassTransaction $ct) => $ct->classTransactionDetails)
+            ->filter(fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->between($startDate, $endDate))
+            ->groupBy(fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->toFormattedDateString());
+
+        foreach ($classesGroupedByDates as $date => $classes) {
+            foreach ($classes as $class) {
+                $classCalendar[$date][] = $class;
+            }
+        }
+
+        return view('general.schedules', compact('classCalendar', 'now'));
     }
 
     private function getCurrentUserClassTransactions()

@@ -41,11 +41,6 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::prefix('/class-transaction')->group(function () {
-        Route::name('class-transaction.')->group(function () {
-        });
-    });
-
     Route::name('general.')->group(function () {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
