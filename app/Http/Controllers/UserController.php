@@ -114,6 +114,7 @@ class UserController extends Controller
         $classesGroupedByDates = $this->getCurrentUserClassTransactions()
             ->flatMap(fn (ClassTransaction $ct) => $ct->classTransactionDetails)
             ->filter(fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->between($startDate, $endDate))
+            ->sortBy(fn (ClassTransactionDetail $ctd) => $ctd->shift->description)
             ->groupBy(fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->toFormattedDateString());
 
         foreach ($classesGroupedByDates as $date => $classes) {

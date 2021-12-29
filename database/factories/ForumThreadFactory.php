@@ -18,7 +18,6 @@ class ForumThreadFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'user_id' => User::inRandomOrder()->first()->id,
             'title' => $this->faker->sentence,
             'content' => collect($this->faker->paragraphs())->join("\n\n"),
             'attachment' => $this->faker->boolean ? 'case.txt' : null,

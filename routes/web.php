@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassTransactionController;
 use App\Http\Controllers\ForumReplyController;
@@ -48,6 +49,11 @@ Route::middleware('auth')->group(function () {
             Route::name('courses')->group(function () {
                 Route::get('/', [UserController::class, 'courses'])->name('');
                 Route::get('/{classTransaction}', [ClassTransactionController::class, 'view'])->name('.view');
+
+                Route::name('.assignments')->group(function () {
+                    Route::post('/{classTransaction}/assignments', [AssignmentController::class, 'create'])->name('.create');
+                    Route::post('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'delete'])->name('.delete');
+                });
             });
         });
 

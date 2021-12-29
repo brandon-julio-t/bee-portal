@@ -12,7 +12,7 @@
     }
 
     .btn-primary {
-        @apply inline-flex items-center px-4 py-2 border border-sky-300 text-sm font-medium rounded-md shadow-sm text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500;
+        @apply inline-flex items-center px-4 py-2 border border-sky-300 text-sm font-medium rounded-md shadow-sm text-white bg-sky-500 hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500;
     }
 
     .btn-danger {
@@ -20,7 +20,7 @@
     }
 
     .btn-secondary {
-        @apply inline-flex items-center px-4 py-2 border border-sky-300 text-sm font-medium rounded-md shadow-sm text-sky-600 bg-sky-100 hover:bg-sky-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500;
+        @apply inline-flex items-center px-4 py-2 border border-sky-300 text-sm font-medium rounded-md shadow-sm text-sky-600 bg-sky-50 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500;
     }
 
     .btn-icon {

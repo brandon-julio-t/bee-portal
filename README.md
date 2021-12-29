@@ -14,11 +14,11 @@ Judul: uman (university manager)
   - ✅ view courses
   - view assignment per kelas dan kumpul jwbn (validation & error messages)
   - view nilai
-  - crud forum & replynya (validation & error messages)
+  - ✅ crud forum & replynya (validation & error messages)
 - pengajar (middleware & authorization)
   - submit nilai
   - bikin assignment per kelas
-  - crud forum & replynya (validation & error messages)
+  - ✅ crud forum & replynya (validation & error messages)
 - admin (middleware & authorization)
   - ✅ alokasi transaksi mhs, kelas, dan pengajar
   - ✅ crud kelas (validation & error messages & pagination w/ searching)

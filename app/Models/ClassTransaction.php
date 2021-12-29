@@ -77,7 +77,7 @@ class ClassTransaction extends Model
         return $this->hasMany(ClassTransactionStudent::class);
     }
 
-    public function assignment()
+    public function assignments()
     {
         return $this->hasMany(Assignment::class);
     }
