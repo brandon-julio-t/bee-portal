@@ -36,23 +36,29 @@ class ForumThreadController extends Controller
             ->with('success', 'Forum created successfully.');
     }
 
-    public function replyThread(Request $request, ForumThread $forumThread)
+    public function update(Request $request, ForumThread $forumThread)
     {
+        $this->authorize('update', $forumThread);
+
         $data = $request->validate([
+            'title' => 'required|string',
             'content' => 'required|string',
-            'attachment' => 'file|mimes:zip,rar'
+            'attachment' => 'file|mimes:zip,rar',
         ]);
-        $user = Auth::user();
-        $data = collect($data)->merge([
-            'id' => Str::uuid(),
-            'user_id' => $user->id,
-            'forum_thread_id' => $forumThread->id,
-            'attachment' => optional($request->attachment)->store('forum_replies'),
-        ])->all();
+        $data['attachment'] = optional($request->attachment)->store('forum_threads') ?? $forumThread->attachment;
 
-        ForumReply::create($data);
+        $forumThread->fill($data);
+        $forumThread->save();
 
-        return redirect()->back()
-            ->with('success', 'Reply success.');
+        return redirect()->route('general.forums.view', $forumThread)
+            ->with('success', 'Forum updated successfully.');
+    }
+
+    public function delete(ForumThread $forumThread)
+    {
+        $this->authorize('delete', $forumThread);
+        $forumThread->delete();
+        return redirect()->route('general.forums')
+            ->with('success', 'Forum deleted successfully');
     }
 }

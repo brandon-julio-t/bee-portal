@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group(function () {
             Route::get('/{forumThread}/replies', function (ForumThread $forumThread) {
                 $replies = ForumReply::with('user')
                     ->where('forum_thread_id', $forumThread->id)
+                    ->orderByDesc('created_at')
                     ->paginate(3);
                 return $replies;
             })->name('replies');

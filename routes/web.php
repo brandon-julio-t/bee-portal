@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassTransactionController;
+use App\Http\Controllers\ForumReplyController;
 use App\Http\Controllers\ForumThreadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StorageController;
@@ -60,7 +61,14 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [UserController::class, 'forums'])->name('');
                 Route::post('/{classTransactionDetail}', [ForumThreadController::class, 'create'])->name('.create');
                 Route::get('/{forumThread}', [ForumThreadController::class, 'view'])->name('.view');
-                Route::post('/{forumThread}', [ForumThreadController::class, 'replyThread'])->name('.reply-thread');
+                Route::put('/{forumThread}', [ForumThreadController::class, 'update'])->name('.update');
+                Route::delete('/{forumThread}', [ForumThreadController::class, 'delete'])->name('.delete');
+
+                Route::name('.replies')->group(function () {
+                    Route::post('/{forumThread}/replies', [ForumReplyController::class, 'create'])->name('.create');
+                    Route::put('/{forumThread}/replies/{forumReply}', [ForumReplyController::class, 'update'])->name('.update');
+                    Route::delete('/{forumThread}/replies/{forumReply}', [ForumReplyController::class, 'delete'])->name('.delete');
+                });
             });
         });
 

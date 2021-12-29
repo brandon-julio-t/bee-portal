@@ -11,7 +11,7 @@ Judul: uman (university manager)
 - ✅ bisa login sbg mhs, pengajar, dan admin
 - forum reply infinite scrolling (ajax & api + authorize hanya mhs/dosen yg ada di kelas itu yg bisa view)
 - mhs (middleware & authorization)
-  - view courses
+  - ✅ view courses
   - view assignment per kelas dan kumpul jwbn (validation & error messages)
   - view nilai
   - crud forum & replynya (validation & error messages)
