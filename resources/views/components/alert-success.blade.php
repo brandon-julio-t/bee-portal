@@ -1,6 +1,6 @@
 @if (session('success'))
-    <div x-cloak x-transition x-data="{ show: true }" class="container my-8">
-        <div class="rounded-md bg-green-50 p-4" x-show="show">
+    <div x-data="{ show: true }" class="container my-8">
+        <div class="rounded-md bg-green-50 p-4" x-cloak x-transition x-show="show">
             <div class="flex">
                 <div class="flex-shrink-0">
                     <!-- Heroicon name: solid/check-circle -->

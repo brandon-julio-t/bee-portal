@@ -51,8 +51,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('/{classTransaction}', [ClassTransactionController::class, 'view'])->name('.view');
 
                 Route::name('.assignments')->group(function () {
+                    Route::get('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'view'])->name('.view');
+                    Route::put('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'update'])->name('.update');
+                    Route::post('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'submit'])->name('.submit');
                     Route::post('/{classTransaction}/assignments', [AssignmentController::class, 'create'])->name('.create');
-                    Route::post('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'delete'])->name('.delete');
+                    Route::delete('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'delete'])->name('.delete');
                 });
             });
         });

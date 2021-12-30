@@ -60,13 +60,17 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
                         <div class="my-2">
                             <button @click="open = !open" type="button"
                                 class="ml-auto bg-white rounded px-4 py-2 hover:bg-gray-100 font-medium flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                :class="{
+                                    'btn': !open,
+                                    'btn-secondary': open,
+                                }"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
                                 <span>{{ Auth::user()->name }}</span>
                             </button>
                         </div>
 
-                        <div x-cloak x-transition x-show="open"
+                        <div @click.outside="open = false" x-cloak x-collapse x-show="open"
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
@@ -96,7 +100,7 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
             <ol class="bg-white rounded-md shadow px-6 flex space-x-4">
                 <li class="flex">
                     <div class="flex items-center">
-                        <a href="{{ route('index') }}" class="text-gray-400 hover:text-gray-500">
+                        <a href="{{ route('index') }}" class="text-gray-500 hover:text-sky-400">
                             <!-- Heroicon name: solid/home -->
                             <svg class="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                 fill="currentColor" aria-hidden="true">
@@ -130,7 +134,9 @@ $semesters = \App\Models\Semester::orderByDesc('active_at')->get();
                                 <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                             </svg>
                             <a href="{{ $currentPath }}"
-                                class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">{{ $path }}</a>
+                                class="ml-4 text-sm font-medium @if ($loop->last) text-sky-500 @else text-gray-500 @endif hover:text-sky-400">
+                                {{ $path }}
+                            </a>
                         </div>
                     </li>
                 @endforeach

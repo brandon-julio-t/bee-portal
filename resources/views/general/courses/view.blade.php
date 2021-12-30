@@ -16,9 +16,21 @@
                     <div class="col-span-12 md:col-span-9">{{ $classTransaction->lecturer->name }}</div>
                 </div>
             </div>
-            <div class="card col-span-12 lg:col-span-7">
-                <header x-data="{ show: false }" class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">Assignments</h2>
+            <div x-data="{ collapse: true }" class="card col-span-12 lg:col-span-7 h-fit">
+                <header x-data="{ show: false }" class="flex items-center justify-between">
+                    <h2 class="text-xl font-semibold flex items-center">
+                        <button @click="collapse = !collapse" class="mr-2">
+                            <svg x-cloak x-show="collapse" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <svg x-cloak x-show="!collapse" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                        <span>Assignments</span>
+                    </h2>
                     @can('create', \App\Models\Assignment::class)
                         <button @click="show = true" class="btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20"
@@ -36,7 +48,7 @@
                                     action="{{ route('general.courses.assignments.create', $classTransaction) }}"
                                     method="POST" class="card grid grid-cols-1 gap-4" enctype="multipart/form-data">
                                     @csrf
-                                    <h2 class="text-xl font-semibold">Create Assignments</h2>
+                                    <h2 class="text-xl font-semibold">Create Assignment</h2>
                                     <input type="text" name="title" class="form-input" placeholder="Title">
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <input type="datetime-local" name="start_at" class="form-input" title="Start At">
@@ -73,7 +85,7 @@
                         </div>
                     @endcan
                 </header>
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div x-show="collapse" x-collapse class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-4">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mb-4">
                             <table class="min-w-full divide-y divide-gray-200">
@@ -99,7 +111,8 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($assignments as $assignment)
-                                        <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
+                                        <tr @click="location.href = '{{ route('general.courses.assignments.view', [$classTransaction, $assignment]) }}'"
+                                            class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100 cursor-pointer">
                                             <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
                                                 {{ $assignment->title }}
                                             </td>
@@ -114,7 +127,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
+                                        <tr class="bg-white hover:bg-gray-100">
                                             <td colspan="4"
                                                 class="px-6 py-4 whitespace-normal text-sm text-center font-medium text-gray-900">
                                                 No assignments.
@@ -124,6 +137,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{ $assignments->links() }}
                     </div>
                 </div>
             </div>
@@ -133,11 +147,11 @@
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold flex items-center">
                     <button @click="show = !show" class="mr-2">
-                        <svg x-cloak x-show="!show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        <svg x-cloak x-show="show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
-                        <svg x-cloak x-show="show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        <svg x-cloak x-show="!show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
@@ -262,11 +276,11 @@
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold flex items-center">
                     <button @click="show = !show" class="mr-2">
-                        <svg x-cloak x-show="!show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        <svg x-cloak x-show="show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
-                        <svg x-cloak x-show="show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        <svg x-cloak x-show="!show" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>

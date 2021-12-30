@@ -41,6 +41,8 @@ class Assignment extends Model
      */
     protected $casts = [
         'id' => 'string',
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
     ];
 
     public function assignmentSubmission()

@@ -7,17 +7,15 @@ Judul: uman (university manager)
 
 - ✅ semester aktif
 - ✅ ada transaksi yg gabungin kelas, jadwal, mhs, dan pengajar2nya
-- datanya difilter per semester
+- ✅ datanya difilter per semester
 - ✅ bisa login sbg mhs, pengajar, dan admin
-- forum reply infinite scrolling (ajax & api + authorize hanya mhs/dosen yg ada di kelas itu yg bisa view)
+- ✅ forum reply infinite scrolling (ajax & api + authorize hanya mhs/dosen yg ada di kelas itu yg bisa view)
 - mhs (middleware & authorization)
   - ✅ view courses
-  - view assignment per kelas dan kumpul jwbn (validation & error messages)
-  - view nilai
+  - ✅ view assignment per kelas dan kumpul jwbn (validation & error messages)
   - ✅ crud forum & replynya (validation & error messages)
 - pengajar (middleware & authorization)
-  - submit nilai
-  - bikin assignment per kelas
+  - ✅ bikin assignment per kelas
   - ✅ crud forum & replynya (validation & error messages)
 - admin (middleware & authorization)
   - ✅ alokasi transaksi mhs, kelas, dan pengajar

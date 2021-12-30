@@ -12,8 +12,9 @@
             <div class="my-4">{!! nl2br(e($forumThread->content)) !!}</div>
             @if ($forumThread->attachment)
                 <div class="mb-4">
-                    <a target="_blank" href="{{ route('storage.download', $forumThread->attachment) }}"
-                        class="btn">Download Attachments</a>
+                    <a href="{{ route('storage.download', $forumThread->attachment) }}" class="btn">
+                        Download Attachments
+                    </a>
                 </div>
             @endif
 

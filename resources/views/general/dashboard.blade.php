@@ -50,7 +50,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr class="bg-white">
+                                            <tr class="bg-white hover:bg-gray-100">
                                                 <td class="text-center py-4 font-bold" colspan="4">
                                                     No class for today.
                                                 </td>
@@ -120,7 +120,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr class="bg-white">
+                                            <tr class="bg-white hover:bg-gray-100">
                                                 <td class="text-center py-4 font-bold" colspan="5">
                                                     No forums yet.
                                                 </td>
@@ -175,7 +175,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($assignments as $assignment)
-                                            <tr
+                                            <tr @click="location.href = '{{ route('general.courses.assignments.view', [$assignment->classTransaction, $assignment]) }}'"
                                                 class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100 cursor-pointer">
                                                 <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
                                                     {{ $assignment->title }}
@@ -198,7 +198,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr class="bg-white">
+                                            <tr class="bg-white hover:bg-gray-100">
                                                 <td class="text-center py-4 font-bold" colspan="6">
                                                     No assignments yet.
                                                 </td>
