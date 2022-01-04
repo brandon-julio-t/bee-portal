@@ -57,31 +57,41 @@ class UserController extends Controller
     public function forums(Request $request)
     {
         $classTransactions = $this->getCurrentUserClassTransactions();
-        $selectedCtid = $request->get('ctid', $classTransactions->first()->id);
-        $classTransaction = $classTransactions->find($selectedCtid);
+        $classTransaction = null;
+        $classTransactionDetails = collect();
+        $sessions = collect();
+        $latestSession = null;
+        $currentSession = null;
+        $currentClassTransactionDetail = null;
+        $forums = collect();
 
-        $classTransactionDetails = $classTransaction->classTransactionDetails;
+        if (!$classTransactions->isEmpty()) {
+            $selectedCtid = $request->get('ctid', $classTransactions->first()->id);
+            $classTransaction = $classTransactions->find($selectedCtid);
 
-        $sessions = $classTransactionDetails->unique('session')
-            ->sortBy('session')
-            ->map(fn (ClassTransactionDetail $ctd) => $ctd->session);
+            $classTransactionDetails = $classTransaction->classTransactionDetails;
 
-        $now = now();
-        $latestSession = $classTransactionDetails->filter(
-            fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->year <= $now->year
-                && $ctd->transaction_date->month <= $now->month
-                && $ctd->transaction_date->day <= $now->day
-        )->sortByDesc('transaction_date')->first()->session;
+            $sessions = $classTransactionDetails->unique('session')
+                ->sortBy('session')
+                ->map(fn (ClassTransactionDetail $ctd) => $ctd->session);
 
-        $currentSession = intval($request->get('s') ?? $latestSession);
-        $currentClassTransactionDetail = $classTransactionDetails->filter(fn (ClassTransactionDetail $ctd) => $ctd->session === $currentSession)->first();
+            $now = now();
+            $latestSession = $classTransactionDetails->filter(
+                fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->year <= $now->year
+                    && $ctd->transaction_date->month <= $now->month
+                    && $ctd->transaction_date->day <= $now->day
+            )->sortByDesc('transaction_date')->first()->session;
 
-        $forums = ForumThread::whereIn(
-            'class_transaction_detail_id',
-            $classTransactionDetails->map(fn (ClassTransactionDetail $ctd) => $ctd->id)
-        )->whereHas('classTransactionDetail', fn (Builder $query) => $query->where('session', $currentSession))
-            ->orderByDesc('created_at')
-            ->paginate();
+            $currentSession = intval($request->get('s') ?? $latestSession);
+            $currentClassTransactionDetail = $classTransactionDetails->filter(fn (ClassTransactionDetail $ctd) => $ctd->session === $currentSession)->first();
+
+            $forums = ForumThread::whereIn(
+                'class_transaction_detail_id',
+                $classTransactionDetails->map(fn (ClassTransactionDetail $ctd) => $ctd->id)
+            )->whereHas('classTransactionDetail', fn (Builder $query) => $query->where('session', $currentSession))
+                ->orderByDesc('created_at')
+                ->paginate();
+        }
 
         return view(
             'general.forums.index',

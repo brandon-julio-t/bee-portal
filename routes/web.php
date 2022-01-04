@@ -9,6 +9,7 @@ use App\Http\Controllers\ForumThreadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StorageController;
 use App\Http\Controllers\UserController;
+use App\Models\ClassTransaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,7 @@ Route::middleware('auth')->group(function () {
                     Route::get('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'view'])->name('.view');
                     Route::put('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'update'])->name('.update');
                     Route::post('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'submit'])->name('.submit');
+                    Route::get('/{classTransaction}/assignments', fn (ClassTransaction $classTransaction) => redirect()->route('general.courses.view', $classTransaction));
                     Route::post('/{classTransaction}/assignments', [AssignmentController::class, 'create'])->name('.create');
                     Route::delete('/{classTransaction}/assignments/{assignment}', [AssignmentController::class, 'delete'])->name('.delete');
                 });

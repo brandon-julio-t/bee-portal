@@ -1,7 +1,6 @@
 @extends('layout.layout')
 
 @section('body')
-
     <div class="mx-auto my-8 md:my-16 max-w-sm">
         <form action="{{ route('auth.login') }}" method="POST" class="card grid grid-cols-1 gap-4">
             @csrf
@@ -15,5 +14,4 @@
             <button type="submit" class="btn-primary justify-center">Login</button>
         </form>
     </div>
-
 @endsection

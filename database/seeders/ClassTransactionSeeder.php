@@ -21,34 +21,34 @@ class ClassTransactionSeeder extends Seeder
     public function run()
     {
         ClassTransaction::factory()
-            ->count(150)
+            ->count(40)
             ->has(
                 ClassTransactionStudent::factory()
-                    ->count(30)
+                    ->count(15)
                     ->state(fn (array $attributes, ClassTransaction $classTransaction) => ['class_transaction_id' => $classTransaction->id])
             )->has(
                 Assignment::factory()
-                    ->count(3)
+                    ->count(10)
                     ->state(fn (array $attributes, ClassTransaction $classTransaction) => ['class_transaction_id' => $classTransaction->id])
                     ->has(
                         AssignmentSubmission::factory()
-                            ->count(10)
+                            ->count(3)
                             ->state(fn (array $attributes, Assignment $assignment) => ['assignment_id' => $assignment->id])
                     )
             )->has(
                 ClassTransactionDetail::factory()
-                    ->count(12)
+                    ->count(6)
                     ->state(fn (array $attributes, ClassTransaction $classTransaction) => ['class_transaction_id' => $classTransaction->id])
                     ->has(
                         ForumThread::factory()
-                            ->count(30)
+                            ->count(20)
                             ->state(fn (array $attributes, ClassTransactionDetail $classTransactionDetail) => [
                                 'class_transaction_detail_id' => $classTransactionDetail->id,
                                 'user_id' => $classTransactionDetail->classTransaction->lecturer->id,
                             ])
                             ->has(
                                 ForumReply::factory()
-                                    ->count(15)
+                                    ->count(6)
                                     ->state(fn (array $attributes, ForumThread $forumThread) => ['forum_thread_id' => $forumThread->id])
                             )
                     )

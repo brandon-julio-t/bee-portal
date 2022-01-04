@@ -220,7 +220,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($students as $student)
+                                    @forelse ($students as $student)
                                         <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {{ $student->code }}
@@ -263,7 +263,13 @@
                                                 </td>
                                             @endcan
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr class="bg-white hover:bg-gray-100">
+                                            <td class="text-center py-4 font-bold" colspan="4">
+                                                No students.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -363,7 +369,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($details as $detail)
+                                    @forelse ($details as $detail)
                                         <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100">
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-gray-900">
@@ -411,7 +417,13 @@
                                                 </td>
                                             @endcan
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr class="bg-white hover:bg-gray-100">
+                                            <td class="text-center py-4 font-bold" colspan="5">
+                                                No details.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

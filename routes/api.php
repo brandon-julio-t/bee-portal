@@ -22,7 +22,7 @@ Route::middleware('auth:api')->group(function () {
                 $replies = ForumReply::with('user')
                     ->where('forum_thread_id', $forumThread->id)
                     ->orderByDesc('created_at')
-                    ->paginate(3);
+                    ->paginate(2);
                 return $replies;
             })->name('replies');
         });
