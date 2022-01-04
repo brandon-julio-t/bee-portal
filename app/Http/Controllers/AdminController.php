@@ -59,7 +59,7 @@ class AdminController extends Controller
         ]);
         $data = collect($data)->merge([
             'id' => Str::uuid(),
-            'semester_id' => Semester::getActiveSemester()->id
+            'semester_id' => Auth::user()->active_semester->id,
         ])->all();
         $classTransaction = ClassTransaction::create($data);
         return redirect()->route('admin.allocation')

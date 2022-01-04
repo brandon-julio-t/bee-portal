@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'role' => 'lecturer',
             'code' => 'D0000',
         ]);
-        User::factory()->count(5)->student()->create();
-        User::factory()->count(5)->lecturer()->create();
+        User::factory()->count(20)->student()->create();
+        User::factory()->count(20)->lecturer()->create();
     }
 }

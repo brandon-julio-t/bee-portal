@@ -67,12 +67,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($classTransactions as $classTransaction)
+                                @forelse ($classTransactions as $classTransaction)
                                     <tr x-data
                                         @click="location.href = '{{ route('general.courses.view', $classTransaction) }}'"
                                         @if ($classTransaction->trashed()) class="{{ $loop->odd ? 'bg-red-50' : 'bg-red-100' }} hover:bg-red-200 cursor-pointer" @else class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} hover:bg-gray-100 cursor-pointer" @endif>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $classTransaction->subject->code }} - {{ $classTransaction->subject->name }}
+                                            {{ $classTransaction->subject->code }} -
+                                            {{ $classTransaction->subject->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $classTransaction->classroom->name }}
@@ -84,7 +85,8 @@
                                             {{ $classTransaction->created_at }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('admin.allocation.update.view', $classTransaction) }}" class="btn-secondary">
+                                            <a href="{{ route('admin.allocation.update.view', $classTransaction) }}"
+                                                class="btn-secondary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon"
                                                     viewBox="0 0 20 20" fill="currentColor">
                                                     <path
@@ -154,7 +156,13 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr class="bg-white hover:bg-gray-100">
+                                        <td class="text-center py-4 font-bold" colspan="5">
+                                            No class transaction yet.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
