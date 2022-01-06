@@ -3,6 +3,14 @@
 Dasar ide: binusmaya / messier
 Judul: uman (university manager)
 
+## How to Run
+
+1. `composer install`
+2. `php artisan migrate:fresh --seed`
+3. `php artisan key:generate`
+4. `php artisan passport:install`
+5. `php artisan serve`
+
 ## Features
 
 - ✅ semester aktif
