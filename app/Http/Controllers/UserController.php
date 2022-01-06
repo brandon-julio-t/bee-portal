@@ -76,11 +76,13 @@ class UserController extends Controller
                 ->map(fn (ClassTransactionDetail $ctd) => $ctd->session);
 
             $now = now();
-            $latestSession = $classTransactionDetails->filter(
-                fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->year <= $now->year
-                    && $ctd->transaction_date->month <= $now->month
-                    && $ctd->transaction_date->day <= $now->day
-            )->sortByDesc('transaction_date')->first()->session;
+            $latestSession = optional(
+                $classTransactionDetails->filter(
+                    fn (ClassTransactionDetail $ctd) => $ctd->transaction_date->year <= $now->year
+                        && $ctd->transaction_date->month <= $now->month
+                        && $ctd->transaction_date->day <= $now->day
+                )->sortByDesc('transaction_date')->first()
+            )->session ?? -1;
 
             $currentSession = intval($request->get('s') ?? $latestSession);
             $currentClassTransactionDetail = $classTransactionDetails->filter(fn (ClassTransactionDetail $ctd) => $ctd->session === $currentSession)->first();
