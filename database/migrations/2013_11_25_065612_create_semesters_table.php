@@ -18,6 +18,7 @@ class CreateSemestersTable extends Migration
             $table->string('name');
             $table->timestamp('active_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

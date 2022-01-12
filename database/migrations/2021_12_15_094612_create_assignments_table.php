@@ -24,6 +24,7 @@ class CreateAssignmentsTable extends Migration
             $table->dateTime('start_at');
             $table->dateTime('end_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

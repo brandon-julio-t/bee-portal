@@ -19,6 +19,7 @@ class CreateMenusTable extends Migration
             $table->string('route_name');
             $table->string('role');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

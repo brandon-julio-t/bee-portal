@@ -1050,8 +1050,8 @@ select {
 .w-full {
   width: 100%;
 }
-.w-\[25\%\] {
-  width: 25%;
+.w-\[250px\] {
+  width: 250px;
 }
 .w-fit {
   width: -webkit-fit-content;
@@ -1061,12 +1061,6 @@ select {
 .w-8 {
   width: 2rem;
 }
-.w-\[32\%\] {
-  width: 32%;
-}
-.w-\[250px\] {
-  width: 250px;
-}
 .min-w-full {
   min-width: 100%;
 }
@@ -1075,9 +1069,6 @@ select {
 }
 .min-w-\[250px\] {
   min-width: 250px;
-}
-.min-w-\[200px\] {
-  min-width: 200px;
 }
 .max-w-sm {
   max-width: 24rem;
@@ -1090,9 +1081,6 @@ select {
 }
 .max-w-xl {
   max-width: 36rem;
-}
-.max-w-\[250px\] {
-  max-width: 250px;
 }
 .flex-1 {
   flex: 1 1 0%;

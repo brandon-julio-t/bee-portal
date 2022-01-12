@@ -32,15 +32,17 @@
             <section class="card grid grid-cols-1 gap-4">
                 <header class="flex justify-between">
                     <h2 class="text-xl font-bold">Forums</h2>
-                    <button @click.prevent="showCreateForm = true" class="btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        Create
-                    </button>
+                    @if (!$sessions->isEmpty())
+                        <button @click.prevent="showCreateForm = true" class="btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Create
+                        </button>
+                    @endif
                 </header>
 
                 <div class="flex space-x-2 flex-wrap">

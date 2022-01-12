@@ -19,7 +19,7 @@ class ClassTransactionDetailFactory extends Factory
      */
     public function definition()
     {
-        if (self::$i > 12) self::$i = 1;
+        if (self::$i > 6) self::$i = 1;
 
         if (self::$i === 1) {
             self::$transaction_date = $this->faker->dateTimeThisYear();

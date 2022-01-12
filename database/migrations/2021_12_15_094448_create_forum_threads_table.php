@@ -23,6 +23,7 @@ class CreateForumThreadsTable extends Migration
             $table->text('content');
             $table->string('attachment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

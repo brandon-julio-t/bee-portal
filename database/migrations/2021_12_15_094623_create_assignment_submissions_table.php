@@ -21,6 +21,7 @@ class CreateAssignmentSubmissionsTable extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->string('attachment');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -24,6 +24,7 @@ class CreateForumRepliesTable extends Migration
             $table->text('content');
             $table->string('attachment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             // these two are put here because primary key is created AFTER foreign key if using one-liner, causing error.
             // hence, we explicitly set constraint in following order
