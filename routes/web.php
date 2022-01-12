@@ -99,6 +99,7 @@ Route::middleware('admin')->group(function () {
 
                     Route::get('/create', [AdminController::class, 'viewCreateAllocation'])->name('.create.view');
 
+                    Route::get('/update', fn () => redirect('/admin/allocation'));
                     Route::get('/update/{classTransaction}', [AdminController::class, 'viewUpdateAllocation'])->name('.update.view');
                     Route::put('/update/{classTransaction}', [AdminController::class, 'updateAllocation'])->name('.update');
 
