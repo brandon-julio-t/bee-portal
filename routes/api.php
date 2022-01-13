@@ -25,7 +25,6 @@ Route::middleware('auth:api')->group(function () {
                 ])->where('forum_thread_id', $forumThread->id)
                     ->orderByDesc('created_at')
                     ->paginate(2);
-                dd($replies);
                 return $replies;
             })->name('replies');
         });
