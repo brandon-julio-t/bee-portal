@@ -94,7 +94,7 @@ Route::middleware('admin')->group(function () {
 
             Route::prefix('/allocation')->group(function () {
                 Route::name('allocation')->group(function () {
-                    Route::get('/', [AdminController::class, 'allocation'])->name('');
+                    Route::get('/', [AdminController::class, 'allocation'])->name('.index');
                     Route::post('/', [AdminController::class, 'createAllocation'])->name('.create');
 
                     Route::get('/create', [AdminController::class, 'viewCreateAllocation'])->name('.create.view');

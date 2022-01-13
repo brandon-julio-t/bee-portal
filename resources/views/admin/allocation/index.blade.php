@@ -2,7 +2,7 @@
 
 @section('body')
     <div class="container">
-        <form action="{{ route('admin.allocation') }}" method="GET" id="filter-form">
+        <form action="{{ route('admin.allocation.index') }}" method="GET" id="filter-form">
             <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-4 sm:space-y-0 mb-4">
                 <a href="{{ route('admin.allocation.create.view') }}" class="btn-primary justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">

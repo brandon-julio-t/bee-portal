@@ -35,7 +35,7 @@
         </select>
 
         <button type="submit" class="btn-primary justify-center col-span-6">Submit</button>
-        <a href="{{ route('admin.allocation') }}" class="btn-danger justify-center col-span-6">
+        <a href="{{ route('admin.allocation.index') }}" class="btn-danger justify-center col-span-6">
             Cancel
         </a>
     </form>

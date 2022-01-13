@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function __invoke()
     {
         if (!Auth::check()) return redirect()->route('auth.login.view');
-        if (Auth::user()->role === 'admin') return redirect()->route('admin.allocation');
+        if (Auth::user()->role === 'admin') return redirect()->route('admin.allocation.index');
         return redirect()->route('general.dashboard');
     }
 }

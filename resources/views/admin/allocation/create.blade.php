@@ -1,7 +1,8 @@
 @extends('layout.layout')
 
 @section('body')
-    <form action="{{ route('admin.allocation.create') }}" method="POST" class="card grid grid-cols-12 gap-4 items-center max-w-screen-md mx-auto">
+    <form action="{{ route('admin.allocation.create') }}" method="POST"
+        class="card grid grid-cols-12 gap-4 items-center max-w-screen-md mx-auto">
         @csrf
         <h2 class="text-lg font-semibold col-span-12">Create Allocation</h2>
 
@@ -29,7 +30,7 @@
         </select>
 
         <button type="submit" class="btn-primary justify-center col-span-6">Submit</button>
-        <a href="{{ route('admin.allocation') }}" class="btn-danger justify-center col-span-6">
+        <a href="{{ route('admin.allocation.index') }}" class="btn-danger justify-center col-span-6">
             Cancel
         </a>
     </form>

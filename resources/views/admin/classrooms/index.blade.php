@@ -102,8 +102,8 @@
         </div>
 
         {{-- Create Modal --}}
-        <div x-cloak x-transition x-show="showModal">
-            <div class="modal">
+        <div x-cloak x-show="showModal">
+            <div x-cloak x-transition x-show="showModal" class="modal" @click.self="showModal = false">
                 <div class="max-w-md mx-auto mt-8">
                     <form action="{{ route('admin.manage-classrooms.update-or-create') }}" method="POST"
                         class="card grid grid-cols-1 gap-4">

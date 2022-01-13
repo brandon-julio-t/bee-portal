@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -62,7 +63,7 @@ class AdminController extends Controller
             'semester_id' => Auth::user()->active_semester->id,
         ])->all();
         $classTransaction = ClassTransaction::create($data);
-        return redirect()->route('admin.allocation')
+        return redirect()->route('admin.allocation.index')
             ->with('success', "Class transaction <b>{$classTransaction->subject->code}</b> - <b>{$classTransaction->subject->name}</b> allocated successfully.");
     }
 
@@ -90,7 +91,7 @@ class AdminController extends Controller
             'lecturer_id' => 'required|exists:users,id',
         ]);
         $classTransaction->update($data);
-        return redirect()->route('admin.allocation')
+        return redirect()->route('admin.allocation.index')
             ->with('success', "Class transaction <b>{$classTransaction->subject->code}</b> - <b>{$classTransaction->subject->name}</b> updated successfully.");
     }
 
@@ -283,13 +284,15 @@ class AdminController extends Controller
 
     public function updateOrCreateUser(Request $request)
     {
+        $isUpdate = $request->id;
+
         $data = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:users,email',
+            'email' => 'required|string' . ($isUpdate ? '' : '|unique:users,email'),
             'role' => ['required', 'string', Rule::in(['student', 'lecturer'])],
         ]);
 
-        if (!$request->id) { // is update
+        if (!$isUpdate) {
             $nextCode = null;
             if ($data['role'] === 'student') {
                 $nextCode = ((int) User::where('role', $data['role'])->orderByDesc('code')->first()->code) + 1;
@@ -300,7 +303,7 @@ class AdminController extends Controller
             $data = collect($data)
                 ->merge([
                     'id' => $request->id ?? Str::uuid(),
-                    'password' => str_repeat($nextCode, 3),
+                    'password' => Hash::make(str_repeat($nextCode, 3)),
                     'code' => $nextCode,
                 ])
                 ->all();
