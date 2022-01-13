@@ -229,7 +229,7 @@ class AdminController extends Controller
     public function updateOrCreateSubject(Request $request)
     {
         $data = $request->validate([
-            'code' => 'required|string|unique:subjects,code,except,id',
+            'code' => 'required|string' . ($request->id ? '' : '|unique:subjects,code,except,id'),
             'name' => 'required|string',
         ]);
         $data = collect($data)

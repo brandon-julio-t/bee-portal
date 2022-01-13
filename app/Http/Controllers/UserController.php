@@ -41,7 +41,7 @@ class UserController extends Controller
             ->paginate(5, ['*'], 'forum_page');
 
         $assignments = Assignment::whereIn('class_transaction_id', $classes->map(fn (ClassTransactionDetail $ctd) => $ctd->classTransaction->id))
-            ->orderByDesc('created_at')
+            ->orderByDesc('end_at')
             ->paginate(5, ['*'], 'assignment_page');
 
         $now = now();
