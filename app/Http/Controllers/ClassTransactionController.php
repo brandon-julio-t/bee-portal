@@ -13,8 +13,9 @@ class ClassTransactionController extends Controller
 {
     public function view(ClassTransaction $classTransaction)
     {
-        $students = $classTransaction->classTransactionStudents->sortBy('name')
+        $students = $classTransaction->classTransactionStudents
             ->map(fn (ClassTransactionStudent $e) => $e->student)
+            ->sortBy('name')
             ->filter(fn (?User $u) => $u !== null);
         $details = $classTransaction->classTransactionDetails->sortBy('session');
         $shifts = Shift::orderBy('start_time')->get();

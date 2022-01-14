@@ -22,6 +22,7 @@ class AssignmentController extends Controller
             $submissions = $assignment->assignmentSubmission
                 ->groupBy(fn (AssignmentSubmission $submission) => $submission->user->name)
                 ->map(fn (Collection $submissions) => $submissions->sortByDesc('created_at')->first())
+                ->sortBy('name')
                 ->values();
         }
 
